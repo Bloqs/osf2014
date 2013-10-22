@@ -1,0 +1,12 @@
+ch\heigvd\skeleton\services\crud\EmployeesManager.class
+ch\heigvd\skeleton\to\PublicEmployeeTO.class
+ch\heigvd\skeleton\services\to\EmployeesTOServiceLocal.class
+ch\heigvd\skeleton\rest\ApplicationExceptionMapper.class
+ch\heigvd\skeleton\model\Employee.class
+ch\heigvd\skeleton\util\TestDataGenerator.class
+ch\heigvd\skeleton\rest\EmployeesResource.class
+ch\heigvd\skeleton\exceptions\EntityNotFoundException.class
+ch\heigvd\skeleton\model\Employee_.class
+ch\heigvd\skeleton\rest\RESTAPI.class
+ch\heigvd\skeleton\services\crud\EmployeesManagerLocal.class
+ch\heigvd\skeleton\services\to\EmployeesTOService.class

@@ -1,0 +1,12 @@
+ch\heigvd\gamification\exceptions\EntityNotFoundException.class
+ch\heigvd\gamification\to\PublicEmployeeTO.class
+ch\heigvd\gamification\rest\RESTAPI.class
+ch\heigvd\gamification\services\to\EmployeesTOService.class
+ch\heigvd\gamification\util\TestDataGenerator.class
+ch\heigvd\gamification\services\crud\EmployeesManagerLocal.class
+ch\heigvd\gamification\model\Employee_.class
+ch\heigvd\gamification\services\to\EmployeesTOServiceLocal.class
+ch\heigvd\gamification\model\Employee.class
+ch\heigvd\gamification\services\crud\EmployeesManager.class
+ch\heigvd\gamification\rest\ApplicationExceptionMapper.class
+ch\heigvd\gamification\rest\EmployeesResource.class

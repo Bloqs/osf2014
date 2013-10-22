@@ -1,0 +1,11 @@
+C:\Users\Khaled\Documents\NetBeansProjects\Skeleton\src\main\java\ch\heigvd\skeleton\rest\ApplicationExceptionMapper.java
+C:\Users\Khaled\Documents\NetBeansProjects\Skeleton\src\main\java\ch\heigvd\skeleton\rest\RESTAPI.java
+C:\Users\Khaled\Documents\NetBeansProjects\Skeleton\src\main\java\ch\heigvd\skeleton\services\crud\EmployeesManagerLocal.java
+C:\Users\Khaled\Documents\NetBeansProjects\Skeleton\src\main\java\ch\heigvd\skeleton\services\crud\EmployeesManager.java
+C:\Users\Khaled\Documents\NetBeansProjects\Skeleton\src\main\java\ch\heigvd\skeleton\services\to\EmployeesTOService.java
+C:\Users\Khaled\Documents\NetBeansProjects\Skeleton\src\main\java\ch\heigvd\skeleton\util\TestDataGenerator.java
+C:\Users\Khaled\Documents\NetBeansProjects\Skeleton\src\main\java\ch\heigvd\skeleton\model\Employee.java
+C:\Users\Khaled\Documents\NetBeansProjects\Skeleton\src\main\java\ch\heigvd\skeleton\exceptions\EntityNotFoundException.java
+C:\Users\Khaled\Documents\NetBeansProjects\Skeleton\src\main\java\ch\heigvd\skeleton\rest\EmployeesResource.java
+C:\Users\Khaled\Documents\NetBeansProjects\Skeleton\src\main\java\ch\heigvd\skeleton\services\to\EmployeesTOServiceLocal.java
+C:\Users\Khaled\Documents\NetBeansProjects\Skeleton\src\main\java\ch\heigvd\skeleton\to\PublicEmployeeTO.java
