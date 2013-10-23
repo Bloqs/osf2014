@@ -1,0 +1,121 @@
+package ch.heigvd.gamification.rest;
+
+import ch.heigvd.gamification.exceptions.EntityNotFoundException;
+import ch.heigvd.gamification.model.Application;
+import ch.heigvd.gamification.services.crud.ApplicationsManagerLocal;
+import ch.heigvd.gamification.services.to.ApplicationsTOServiceLocal;
+import ch.heigvd.gamification.to.PublicApplicationTO;
+import java.net.URI;
+import java.util.LinkedList;
+import java.util.List;
+import javax.ejb.EJB;
+import javax.ejb.Stateless;
+import javax.ws.rs.Consumes;
+import javax.ws.rs.DELETE;
+import javax.ws.rs.core.Context;
+import javax.ws.rs.core.UriInfo;
+import javax.ws.rs.Path;
+import javax.ws.rs.GET;
+import javax.ws.rs.POST;
+import javax.ws.rs.PUT;
+import javax.ws.rs.PathParam;
+import javax.ws.rs.Produces;
+import javax.ws.rs.core.Response;
+
+/**
+ * REST Web Service
+ *
+ * @author Khaled Basbous
+ */
+@Stateless
+@Path("applications")
+public class ApplicationResource {
+
+    @Context
+    private UriInfo context;
+
+    @EJB
+    ApplicationsManagerLocal applicationsManager;
+
+    @EJB
+    ApplicationsTOServiceLocal applicationsTOService;
+
+    /**
+     * Creates a new instance of ApplicationsResource
+     */
+    public ApplicationResource() {
+    }
+
+    /**
+     * Creates a new Application resource from the provided representation
+     *
+     * @return an instance of PublicApplicationTO
+     */
+    @POST
+    @Consumes({"application/json"})
+    public Response createResource(PublicApplicationTO newApplicationTO) {
+        Application newApplication = new Application();
+        applicationsTOService.updateApplicationEntity(newApplication, newApplicationTO);
+        long newApplicationId = applicationsManager.create(newApplication);
+        URI createdURI = context.getAbsolutePathBuilder().path(Long.toString(newApplicationId)).build();
+        return Response.created(createdURI).build();
+    }
+
+    /**
+     * Retrieves a representation of a list of Application resources
+     *
+     * @return a list of PublicApplicationTO instances
+     */
+    @GET
+    @Produces({"application/json", "application/xml"})
+    public List<PublicApplicationTO> getResourceList() {
+        List<Application> applications = applicationsManager.findAll();
+        List<PublicApplicationTO> result = new LinkedList<PublicApplicationTO>();
+        for (Application application : applications) {
+            result.add(applicationsTOService.buildPublicApplicationTO(application));
+        }
+        return result;
+    }
+
+    /**
+     * Retrieves representation of an Application resource
+     *
+     * @return an instance of PublicApplicationTO
+     */
+    @GET
+    @Path("{id}")
+    @Produces({"application/json", "application/xml"})
+    public PublicApplicationTO getResource(@PathParam("id") long id) throws EntityNotFoundException {
+        Application application = applicationsManager.findById(id);
+        PublicApplicationTO applicationTO = applicationsTOService.buildPublicApplicationTO(application);
+        return applicationTO;
+    }
+
+    /**
+     * Updates an Application resource
+     *
+     * @return an instance of PublicApplicationTO
+     */
+    @PUT
+    @Path("{id}")
+    @Consumes({"application/json"})
+    public Response Resource(PublicApplicationTO updatedApplicationTO, @PathParam("id") long id) throws EntityNotFoundException {
+        Application applicationToUpdate = applicationsManager.findById(id);
+        applicationsTOService.updateApplicationEntity(applicationToUpdate, updatedApplicationTO);
+        applicationsManager.update(applicationToUpdate);
+        return Response.ok().build();
+    }
+
+    /**
+     * Deletes an Application resource
+     *
+     * @return an instance of PublicApplicationTO
+     */
+    @DELETE
+    @Path("{id}")
+    public Response deleteResource(@PathParam("id") long id) throws EntityNotFoundException {
+        applicationsManager.delete(id);
+        return Response.ok().build();
+    }
+
+}

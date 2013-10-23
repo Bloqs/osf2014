@@ -8,17 +8,17 @@ import javax.ws.rs.core.Application;
 
 /**
  *
- * @author Olivier Liechti
+ * @author Khaled Basbous
  */
 @ApplicationPath("/api")
 public class RESTAPI extends Application {
 
-	@Override
-	public Set<Class<?>> getClasses() {
-		final Set<Class<?>> classes = new HashSet<Class<?>>();
-		// register root resources/providers
-		classes.add(ApplicationExceptionMapper.class);
-		classes.add(EmployeesResource.class);
-		return classes;
-	}
+    @Override
+    public Set<Class<?>> getClasses() {
+        final Set<Class<?>> classes = new HashSet<Class<?>>();
+        // register root resources/providers
+        classes.add(ApplicationExceptionMapper.class);
+        classes.add(ApplicationResource.class);
+        return classes;
+    }
 }
