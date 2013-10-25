@@ -4,14 +4,14 @@ import com.sun.corba.se.impl.protocol.giopmsgheaders.Message;
 import java.util.HashSet;
 import java.util.Set;
 import javax.ws.rs.ApplicationPath;
-import javax.ws.rs.core.Application;
+//import javax.ws.rs.core.Application;
 
 /**
  *
  * @author Khaled Basbous
  */
 @ApplicationPath("/api")
-public class RESTAPI extends Application {
+public class RESTAPI extends javax.ws.rs.core.Application {
 
     @Override
     public Set<Class<?>> getClasses() {
