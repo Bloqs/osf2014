@@ -13,14 +13,14 @@ public class ApplicationsTOService implements ApplicationsTOServiceLocal {
 
     @Override
     public PublicApplicationTO buildPublicApplicationTO(Application source) {
-        PublicApplicationTO to = new PublicApplicationTO(source.getId(), source.getAppName(), source.getAppDescription());
+        PublicApplicationTO to = new PublicApplicationTO(source.getApiKey(), source.getName(), source.getDescription(), source.getPlayers());
         return to;
     }
 
     @Override
     public void updateApplicationEntity(Application existingEntity, PublicApplicationTO newState) {
-        existingEntity.setAppName(newState.getName());
-        existingEntity.setAppDescription(newState.getDescription());
+        existingEntity.setName(newState.getName());
+        existingEntity.setDescription(newState.getDescription());
     }
 
 }

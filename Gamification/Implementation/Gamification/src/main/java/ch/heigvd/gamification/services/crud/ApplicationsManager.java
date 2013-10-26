@@ -23,12 +23,12 @@ public class ApplicationsManager implements ApplicationsManagerLocal {
     public long create(Application applicationData) {
         Application newApplication = new Application(applicationData);
         em.persist(newApplication);
-        return newApplication.getId();
+        return newApplication.getApiKey();
     }
 
     @Override
     public void update(Application newState) throws EntityNotFoundException {
-        Application ApplicationToUpdate = findById(newState.getId());
+        Application applicationToUpdate = findById(newState.getApiKey());
         em.merge(newState);
     }
 

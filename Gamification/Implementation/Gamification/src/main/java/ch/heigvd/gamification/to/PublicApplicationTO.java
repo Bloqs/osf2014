@@ -1,5 +1,9 @@
 package ch.heigvd.gamification.to;
 
+import ch.heigvd.gamification.model.Player;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
 import javax.xml.bind.annotation.XmlRootElement;
 
 /**
@@ -16,27 +20,29 @@ import javax.xml.bind.annotation.XmlRootElement;
 @XmlRootElement
 public class PublicApplicationTO {
 
-    private long applicationId;
-
+    private long apiKey;
     private String name;
-
     private String description;
+    private ArrayList<Player> players;
 
+    
+    
     public PublicApplicationTO() {
     }
 
-    public PublicApplicationTO(long applicationId, String name, String description) {
-        this.applicationId = applicationId;
+    public PublicApplicationTO(long applicationId, String name, String description, ArrayList<Player> players) {
+        this.apiKey = applicationId;
         this.name = name;
         this.description = description;
+        this.players = players;
     }
 
     public long getApplicationId() {
-        return applicationId;
+        return apiKey;
     }
 
     public void setApplicationId(long applicationId) {
-        this.applicationId = applicationId;
+        this.apiKey = applicationId;
     }
 
     public String getName() {
@@ -53,6 +59,22 @@ public class PublicApplicationTO {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public long getApiKey() {
+        return apiKey;
+    }
+
+    public void setApiKey(long apiKey) {
+        this.apiKey = apiKey;
+    }
+
+    public Collection<Player> getPlayers() {
+        return players;
+    }
+
+    public void setPlayers(Collection<Player> players) {
+        this.players = players;
     }
 
 }
