@@ -3,6 +3,7 @@ package ch.heigvd.gamification.rest;
 import ch.heigvd.gamification.exceptions.EntityNotFoundException;
 import ch.heigvd.gamification.model.Application;
 import ch.heigvd.gamification.model.Player;
+import ch.heigvd.gamification.services.crud.ApplicationsManagerLocal;
 import ch.heigvd.gamification.services.crud.PlayersManagerLocal;
 import ch.heigvd.gamification.services.to.PlayersTOServiceLocal;
 import ch.heigvd.gamification.to.PublicPlayerTO;
@@ -21,6 +22,7 @@ import javax.ws.rs.POST;
 import javax.ws.rs.PUT;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
+import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
 /**
@@ -68,7 +70,7 @@ public class PlayerResource {
      * @return a list of PublicApplicationTO instances
      */
     @GET
-    @Produces({"application/json", "application/xml"})
+    @Produces({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
     public List<PublicPlayerTO> getResourceList() {
         List<Player> players = playersManager.findAll();
         List<PublicPlayerTO> result = new LinkedList<PublicPlayerTO>();

@@ -10,6 +10,7 @@ import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import ch.heigvd.gamification.model.Player;
 import java.util.ArrayList;
+import javax.persistence.FetchType;
 import javax.persistence.OneToMany;
 
 /**
@@ -36,7 +37,7 @@ public class Application implements Serializable {
     private String description;
     private String apiSecret;
     
-    @OneToMany(mappedBy="application")
+    @OneToMany(mappedBy="application", fetch = FetchType.LAZY)
     private Collection<Player> players;
     //private Collection<Rules> rules;
     

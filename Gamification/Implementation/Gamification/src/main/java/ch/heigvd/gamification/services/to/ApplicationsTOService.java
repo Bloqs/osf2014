@@ -1,7 +1,13 @@
 package ch.heigvd.gamification.services.to;
 
 import ch.heigvd.gamification.model.Application;
+import ch.heigvd.gamification.model.Player;
 import ch.heigvd.gamification.to.PublicApplicationTO;
+import ch.heigvd.gamification.to.PublicPlayerTO;
+import java.util.Collection;
+import java.util.LinkedList;
+import java.util.List;
+import javax.ejb.EJB;
 import javax.ejb.Stateless;
 
 /**
@@ -11,9 +17,17 @@ import javax.ejb.Stateless;
 @Stateless
 public class ApplicationsTOService implements ApplicationsTOServiceLocal {
 
+    @EJB
+    PlayersTOServiceLocal playersTOService;
+    
     @Override
     public PublicApplicationTO buildPublicApplicationTO(Application source) {
-        PublicApplicationTO to = new PublicApplicationTO(source.getApiKey(), source.getName(), source.getDescription(), source.getPlayers());
+        List<PublicPlayerTO> publicPlayers = new LinkedList<PublicPlayerTO>();
+        for (Player player : source.getPlayers()) {
+            publicPlayers.add(playersTOService.buildPublicPlayerTO(player));
+        }
+        
+        PublicApplicationTO to = new PublicApplicationTO(source.getApiKey(), source.getName(), source.getDescription(), publicPlayers);
         return to;
     }
 

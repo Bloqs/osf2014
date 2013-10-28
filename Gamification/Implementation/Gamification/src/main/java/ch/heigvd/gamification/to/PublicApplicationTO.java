@@ -1,9 +1,15 @@
 package ch.heigvd.gamification.to;
 
+import ch.heigvd.gamification.model.Application;
 import ch.heigvd.gamification.model.Player;
+import ch.heigvd.gamification.services.to.ApplicationsTOServiceLocal;
+import ch.heigvd.gamification.services.to.PlayersTOService;
+import ch.heigvd.gamification.services.to.PlayersTOServiceLocal;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
+import javax.ejb.EJB;
+import javax.ejb.Stateless;
 import javax.xml.bind.annotation.XmlRootElement;
 
 /**
@@ -23,26 +29,18 @@ public class PublicApplicationTO {
     private long apiKey;
     private String name;
     private String description;
-    private ArrayList<Player> players;
-
+    private Collection<PublicPlayerTO> players;
     
+    @EJB PlayersTOServiceLocal playersTOService;
     
     public PublicApplicationTO() {
     }
 
-    public PublicApplicationTO(long applicationId, String name, String description, ArrayList<Player> players) {
-        this.apiKey = applicationId;
+    public PublicApplicationTO(long apiKey, String name, String description, List<PublicPlayerTO> players) {
+        this.apiKey = apiKey;
         this.name = name;
         this.description = description;
         this.players = players;
-    }
-
-    public long getApplicationId() {
-        return apiKey;
-    }
-
-    public void setApplicationId(long applicationId) {
-        this.apiKey = applicationId;
     }
 
     public String getName() {
@@ -69,11 +67,11 @@ public class PublicApplicationTO {
         this.apiKey = apiKey;
     }
 
-    public Collection<Player> getPlayers() {
+    public Collection<PublicPlayerTO> getPlayers() {
         return players;
     }
 
-    public void setPlayers(Collection<Player> players) {
+    public void setPlayers(Collection<PublicPlayerTO> players) {
         this.players = players;
     }
 

@@ -73,6 +73,7 @@ public class ApplicationResource {
         List<PublicApplicationTO> result = new LinkedList<PublicApplicationTO>();
         for (Application application : applications) {
             result.add(applicationsTOService.buildPublicApplicationTO(application));
+            System.out.println("Taille "+application.getPlayers().size()+"\n");
         }
         return result;
     }

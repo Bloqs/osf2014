@@ -19,9 +19,12 @@ public class PlayersTOService implements PlayersTOServiceLocal {
     @EJB
     ApplicationsManagerLocal applicationsManager;
     
+    @EJB
+    ApplicationsTOServiceLocal applicationsTOService;
+    
     @Override
     public PublicPlayerTO buildPublicPlayerTO(Player source) {
-        PublicPlayerTO to = new PublicPlayerTO(source.getId() , source.getFirstName(), source.getLastName(), source.getEmail(), source.getNumberOfPoints(), source.getApplication().getApiKey());
+        PublicPlayerTO to = new PublicPlayerTO(source.getId() , source.getFirstName(), source.getLastName(), source.getEmail(), source.getNumberOfPoints()/*, applicationsTOService.buildPublicApplicationTO(source.getApplication())*/);
         return to;
     }
 
@@ -31,11 +34,12 @@ public class PlayersTOService implements PlayersTOServiceLocal {
         existingEntity.setLastName(newState.getLastName());
         existingEntity.setEmail(newState.getEmail());
         existingEntity.setNumberOfPoints(newState.getNumberOfPoints());
+     /*   
         try {
-            existingEntity.setApplication(applicationsManager.findById(newState.getApiKeyFk()));
+            existingEntity.setApplication(applicationsManager.findById(newState.getApplicationTO().getApiKey()));
         } catch (EntityNotFoundException ex) {
             Logger.getLogger(PlayersTOService.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        }*/
     }
 
 }

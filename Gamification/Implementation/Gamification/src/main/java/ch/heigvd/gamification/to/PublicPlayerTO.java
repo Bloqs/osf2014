@@ -1,6 +1,8 @@
 package ch.heigvd.gamification.to;
 
 import ch.heigvd.gamification.model.Application;
+import ch.heigvd.gamification.services.to.ApplicationsTOServiceLocal;
+import javax.ejb.EJB;
 import javax.xml.bind.annotation.XmlRootElement;
 
 /**
@@ -25,18 +27,18 @@ public class PublicPlayerTO {
     
     private Integer numberOfPoints;
 
-    private Long apiKeyFk;
-
+    private PublicApplicationTO applicationTO;
+    
     public PublicPlayerTO() {
     }
 
-    public PublicPlayerTO(long id, String firstName, String lastName, String email, Integer numberOfPoints, Long apiKeyFk) {
+    public PublicPlayerTO(long id, String firstName, String lastName, String email, Integer numberOfPoints/*, PublicApplicationTO application*/) {
         this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
         this.numberOfPoints = numberOfPoints;
-        this.apiKeyFk = apiKeyFk;
+        //this.applicationTO = application;
     }
 
     public Long getId() {
@@ -78,13 +80,13 @@ public class PublicPlayerTO {
     public void setNumberOfPoints(Integer numberOfPoints) {
         this.numberOfPoints = numberOfPoints;
     }
-
-    public Long getApiKeyFk() {
-        return apiKeyFk;
+/*
+    public PublicApplicationTO getApplicationTO() {
+        return applicationTO;
     }
 
-    public void setApiKeyFk(Long apiKeyFk) {
-        this.apiKeyFk = apiKeyFk;
+    public void setApplicationTO(PublicApplicationTO applicationTO) {
+        this.applicationTO = applicationTO;
     }
-    
+    */
 }
