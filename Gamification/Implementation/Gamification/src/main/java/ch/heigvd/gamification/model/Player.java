@@ -1,7 +1,9 @@
 package ch.heigvd.gamification.model;
 
 import java.io.Serializable;
+import java.util.Collection;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -38,6 +40,8 @@ public class Player implements Serializable {
 
     @ManyToOne
     private Application application;
+    @OneToMany(mappedBy="event", fetch = FetchType.LAZY)
+    private Collection<Event> events;
     //private Collection<Badge> badges;
 
     public Player() {
