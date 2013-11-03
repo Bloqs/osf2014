@@ -1,6 +1,7 @@
 package ch.heigvd.gamification.services.to;
 
 import ch.heigvd.gamification.model.Application;
+import ch.heigvd.gamification.to.PrivateApplicationTO;
 import ch.heigvd.gamification.to.PublicApplicationTO;
 import javax.ejb.Local;
 
@@ -31,6 +32,6 @@ public interface ApplicationsTOServiceLocal {
      * @param newState a TO that contains new state (subset of the entity state)
      * @return the updated employee entity
      */
-    public void updateApplicationEntity(Application existingEntity, PublicApplicationTO newState);
+    public void updateApplicationEntity(Application existingEntity, PrivateApplicationTO newState);
 
 }

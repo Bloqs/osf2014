@@ -12,9 +12,9 @@ import javax.ws.rs.ext.Provider;
 @Provider
 public class GamificationExceptionMapper implements ExceptionMapper<EntityNotFoundException> {
 
-	@Override
-	public Response toResponse(EntityNotFoundException exception) {
-		return Response.status(Response.Status.NOT_FOUND).build();
-	}
+    @Override
+    public Response toResponse(EntityNotFoundException exception) {
+        return Response.status(Response.Status.NOT_FOUND).build();
+    }
 
 }

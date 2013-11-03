@@ -37,11 +37,10 @@ public class Player implements Serializable {
     private String email;
 
     private Integer numberOfPoints;
-
     @ManyToOne
     private Application application;
-    @OneToMany(mappedBy="event", fetch = FetchType.LAZY)
-    private Collection<Event> events;
+    //@OneToMany(mappedBy="event", fetch = FetchType.LAZY)
+    //private Collection<Event> events;
     //private Collection<Badge> badges;
 
     public Player() {

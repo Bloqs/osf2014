@@ -1,5 +1,6 @@
 package ch.heigvd.gamification.services.crud;
 
+import ch.heigvd.gamification.exceptions.AuthentificationFailedException;
 import ch.heigvd.gamification.exceptions.EntityNotFoundException;
 import ch.heigvd.gamification.model.Application;
 import java.util.List;
@@ -20,7 +21,7 @@ public class ApplicationsManager implements ApplicationsManagerLocal {
     private EntityManager em;
 
     @Override
-    public long create(Application applicationData) {
+    public String create(Application applicationData) {
         Application newApplication = new Application(applicationData);
         em.persist(newApplication);
         return newApplication.getApiKey();
@@ -33,14 +34,14 @@ public class ApplicationsManager implements ApplicationsManagerLocal {
     }
 
     @Override
-    public void delete(long id) throws EntityNotFoundException {
-        Application applicationToDelete = findById(id);
+    public void delete(String apiKey) throws EntityNotFoundException {
+        Application applicationToDelete = findById(apiKey);
         em.remove(applicationToDelete);
     }
 
     @Override
-    public Application findById(long id) throws EntityNotFoundException {
-        Application existingApplication = em.find(Application.class, id);
+    public Application findById(String apiKey) throws EntityNotFoundException {
+        Application existingApplication = em.find(Application.class, apiKey);
         if (existingApplication == null) {
             throw new EntityNotFoundException();
         }
@@ -51,6 +52,16 @@ public class ApplicationsManager implements ApplicationsManagerLocal {
     public List<Application> findAll() {
         List applications = em.createNamedQuery("findAllApplications").getResultList();
         return applications;
+    }
+
+    @Override
+    public Application checkApiSecret(String apiKey, String secret) throws AuthentificationFailedException, EntityNotFoundException {
+        Application a = findById(apiKey);
+        if (a.getApiSecret().equals(secret)) {
+            return a;
+        } else {
+            throw new AuthentificationFailedException();
+        }
     }
 
 }

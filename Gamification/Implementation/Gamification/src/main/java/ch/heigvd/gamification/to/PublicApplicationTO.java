@@ -26,7 +26,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 @XmlRootElement
 public class PublicApplicationTO {
 
-    private long apiKey;
+    private String apiKey;
     private String name;
     private String description;
     private Collection<PublicPlayerTO> players;
@@ -36,7 +36,7 @@ public class PublicApplicationTO {
     public PublicApplicationTO() {
     }
 
-    public PublicApplicationTO(long apiKey, String name, String description, List<PublicPlayerTO> players) {
+    public PublicApplicationTO(String apiKey, String name, String description, List<PublicPlayerTO> players) {
         this.apiKey = apiKey;
         this.name = name;
         this.description = description;
@@ -59,11 +59,11 @@ public class PublicApplicationTO {
         this.description = description;
     }
 
-    public long getApiKey() {
+    public String getApiKey() {
         return apiKey;
     }
 
-    public void setApiKey(long apiKey) {
+    public void setApiKey(String apiKey) {
         this.apiKey = apiKey;
     }
 
@@ -74,5 +74,5 @@ public class PublicApplicationTO {
     public void setPlayers(Collection<PublicPlayerTO> players) {
         this.players = players;
     }
-
+    
 }

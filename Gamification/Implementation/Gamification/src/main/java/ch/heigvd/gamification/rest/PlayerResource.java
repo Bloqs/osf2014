@@ -1,5 +1,6 @@
 package ch.heigvd.gamification.rest;
 
+import ch.heigvd.gamification.exceptions.AuthentificationFailedException;
 import ch.heigvd.gamification.exceptions.EntityNotFoundException;
 import ch.heigvd.gamification.model.Application;
 import ch.heigvd.gamification.model.Player;
@@ -8,6 +9,7 @@ import ch.heigvd.gamification.services.crud.PlayersManagerLocal;
 import ch.heigvd.gamification.services.to.PlayersTOServiceLocal;
 import ch.heigvd.gamification.to.PublicPlayerTO;
 import java.net.URI;
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 import javax.ejb.EJB;
@@ -31,7 +33,7 @@ import javax.ws.rs.core.Response;
  * @author Khaled Basbous
  */
 @Stateless
-@Path("players")
+@Path("applications/{apiKey}/{apiSecret}/players")
 public class PlayerResource {
 
     @Context
@@ -42,6 +44,9 @@ public class PlayerResource {
 
     @EJB
     PlayersTOServiceLocal playersTOService;
+
+    @EJB
+    ApplicationsManagerLocal applicationsManager;
 
     /**
      * Creates a new instance of ApplicationsResource
@@ -56,10 +61,13 @@ public class PlayerResource {
      */
     @POST
     @Consumes({"application/json"})
-    public Response createResource(PublicPlayerTO newPlayerTO) {
+    public Response createResource(@PathParam("apiKey") String apiKey, @PathParam("apiSecret") String apiSecret, PublicPlayerTO newPlayerTO) throws AuthentificationFailedException, EntityNotFoundException {
+        Application app = applicationsManager.checkApiSecret(apiKey, apiSecret);
         Player newPlayer = new Player();
         playersTOService.updatePlayerEntity(newPlayer, newPlayerTO);
+        newPlayer.setApplication(app);
         long newPlayerId = playersManager.create(newPlayer);
+        app.getPlayers().add(playersManager.findById(newPlayerId));
         URI createdURI = context.getAbsolutePathBuilder().path(Long.toString(newPlayerId)).build();
         return Response.created(createdURI).build();
     }
@@ -71,8 +79,9 @@ public class PlayerResource {
      */
     @GET
     @Produces({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
-    public List<PublicPlayerTO> getResourceList() {
-        List<Player> players = playersManager.findAll();
+    public List<PublicPlayerTO> getResourceList(@PathParam("apiKey") String apiKey, @PathParam("apiSecret") String apiSecret) throws AuthentificationFailedException, EntityNotFoundException {
+        Application app = applicationsManager.checkApiSecret(apiKey, apiSecret);
+        List<Player> players = new ArrayList<Player>(app.getPlayers());
         List<PublicPlayerTO> result = new LinkedList<PublicPlayerTO>();
         for (Player player : players) {
             result.add(playersTOService.buildPublicPlayerTO(player));
@@ -86,12 +95,16 @@ public class PlayerResource {
      * @return an instance of PublicApplicationTO
      */
     @GET
-    @Path("{id}")
+    @Path("{playerId}")
     @Produces({"application/json", "application/xml"})
-    public PublicPlayerTO getResource(@PathParam("id") long id) throws EntityNotFoundException {
-        Player player = playersManager.findById(id);
-        PublicPlayerTO playerTO = playersTOService.buildPublicPlayerTO(player);
-        return playerTO;
+    public PublicPlayerTO getResource(@PathParam("apiKey") String apiKey, @PathParam("apiSecret") String apiSecret, @PathParam("playerId") long playerId) throws EntityNotFoundException, AuthentificationFailedException {
+        Application app = applicationsManager.checkApiSecret(apiKey, apiSecret);
+        Player player = playersManager.findById(playerId);
+        if (app.getPlayers().contains(player)) {
+            PublicPlayerTO playerTO = playersTOService.buildPublicPlayerTO(player);
+            return playerTO;
+        }
+        return new PublicPlayerTO();
     }
 
     /**
@@ -100,13 +113,17 @@ public class PlayerResource {
      * @return an instance of PublicApplicationTO
      */
     @PUT
-    @Path("{id}")
+    @Path("{playerId}")
     @Consumes({"application/json"})
-    public Response Resource(PublicPlayerTO updatedPlayerTO, @PathParam("id") long id) throws EntityNotFoundException {
-        Player playerToUpdate = playersManager.findById(id);
-        playersTOService.updatePlayerEntity(playerToUpdate, updatedPlayerTO);
-        playersManager.update(playerToUpdate);
-        return Response.ok().build();
+    public Response Resource(PublicPlayerTO updatedPlayerTO, @PathParam("apiKey") String apiKey, @PathParam("apiSecret") String apiSecret, @PathParam("playerId") long playerId) throws EntityNotFoundException, AuthentificationFailedException {
+        Application app = applicationsManager.checkApiSecret(apiKey, apiSecret);
+        Player playerToUpdate = playersManager.findById(playerId);
+        if (app.getPlayers().contains(playerToUpdate)) {
+            playersTOService.updatePlayerEntity(playerToUpdate, updatedPlayerTO);
+            playersManager.update(playerToUpdate);
+            return Response.ok().build();
+        }
+        return Response.notModified().build();
     }
 
     /**
@@ -115,10 +132,16 @@ public class PlayerResource {
      * @return an instance of PublicApplicationTO
      */
     @DELETE
-    @Path("{id}")
-    public Response deleteResource(@PathParam("id") long id) throws EntityNotFoundException {
-        playersManager.delete(id);
-        return Response.ok().build();
+    @Path("{playerId}")
+    public Response deleteResource(@PathParam("apiKey") String apiKey, @PathParam("apiSecret") String apiSecret, @PathParam("playerId") long playerId) throws EntityNotFoundException, AuthentificationFailedException {
+        Application app = applicationsManager.checkApiSecret(apiKey, apiSecret);
+        Player playerToDelete = playersManager.findById(playerId);
+        if (app.getPlayers().contains(playerToDelete)) {
+            app.getPlayers().remove(playerToDelete);
+            playersManager.delete(playerId);
+            return Response.ok().build();
+        }
+        return Response.notModified().build();
     }
 
 }
