@@ -40,10 +40,10 @@ public class Application implements Serializable {
     private String apiSecret;
     @OneToMany(mappedBy="application", cascade=CascadeType.REMOVE)
     private Collection<Player> players;
-    //@OneToMany(mappedBy="rule", fetch = FetchType.LAZY)
-    //private Collection<Rule> rules;
-    //@OneToMany(mappedBy="event", fetch = FetchType.LAZY)
-    //private Collection<Event> events;
+    @OneToMany(mappedBy="application", fetch = FetchType.LAZY)
+    private Collection<Rule> rules;
+    @OneToMany(mappedBy="application", fetch = FetchType.LAZY)
+    private Collection<Event> events;
     
     public Application() {
         apiKey = UUID.randomUUID().toString().toUpperCase();

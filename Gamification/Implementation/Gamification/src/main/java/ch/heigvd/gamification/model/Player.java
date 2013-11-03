@@ -39,8 +39,8 @@ public class Player implements Serializable {
     private Integer numberOfPoints;
     @ManyToOne
     private Application application;
-    //@OneToMany(mappedBy="event", fetch = FetchType.LAZY)
-    //private Collection<Event> events;
+    @OneToMany(mappedBy="player", fetch = FetchType.LAZY)
+    private Collection<Event> events;
     //private Collection<Badge> badges;
 
     public Player() {
