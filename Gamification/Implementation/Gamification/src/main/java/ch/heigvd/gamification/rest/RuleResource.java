@@ -49,7 +49,7 @@ public class RuleResource {
     public RuleResource() {}
     
     @POST
-    @Consumes({"rule/json"})
+    @Consumes({"application/json"})
     public Response createResource(PublicRuleTO newRuleTO) {
         Rule newRule = new Rule();
         rulesTOService.updateRuleEntity(newRule, newRuleTO);
@@ -71,7 +71,7 @@ public class RuleResource {
 
     @GET
     @Path("{id}")
-    @Produces({"rule/json", "application/xml"})
+    @Produces({"application/json", "application/xml"})
     public PublicRuleTO getResource(@PathParam("id") long id) throws EntityNotFoundException {
         Rule rule = rulesManager.findById(id);
         PublicRuleTO ruleTO = rulesTOService.buildPublicRuleTo(rule);
@@ -80,7 +80,7 @@ public class RuleResource {
 
     @PUT
     @Path("{id}")
-    @Consumes({"rule/json"})
+    @Consumes({"application/json"})
     public Response Resource(PublicRuleTO updatedRuleTO, @PathParam("id") long id) throws EntityNotFoundException {
         Rule ruleToUpdate = rulesManager.findById(id);
         rulesTOService.updateRuleEntity(ruleToUpdate, updatedRuleTO);

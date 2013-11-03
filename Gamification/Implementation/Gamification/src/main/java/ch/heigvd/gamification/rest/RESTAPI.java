@@ -20,6 +20,8 @@ public class RESTAPI extends javax.ws.rs.core.Application {
         classes.add(GamificationExceptionMapper.class);
         classes.add(ApplicationResource.class);
         classes.add(PlayerResource.class);
+        classes.add(EventResource.class);
+        classes.add(RuleResource.class);
         return classes;
     }
 }

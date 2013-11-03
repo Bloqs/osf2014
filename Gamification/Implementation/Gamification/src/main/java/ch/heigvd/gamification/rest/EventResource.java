@@ -48,7 +48,7 @@ public class EventResource {
     public EventResource() {}
     
     @POST
-    @Consumes({"event/json"})
+    @Consumes({"application/json"})
     public Response createResource(PublicEventTO newEventTO) {
         Event newEvent = new Event();
         eventsTOService.updateEventEntity(newEvent, newEventTO);
@@ -70,7 +70,7 @@ public class EventResource {
     
     @GET
     @Path("{id}")
-    @Produces({"event/json", "application/xml"})
+    @Produces({"application/json", "application/xml"})
     public PublicEventTO getResource(@PathParam("id") long id) throws EntityNotFoundException {
         Event event = eventsManager.findById(id);
         PublicEventTO eventTO = eventsTOService.buildPublicEventTo(event);
@@ -79,7 +79,7 @@ public class EventResource {
 
     @PUT
     @Path("{id}")
-    @Consumes({"rule/json"})
+    @Consumes({"application/json"})
     public Response Resource(PublicEventTO updatedEventTO, @PathParam("id") long id) throws EntityNotFoundException {
         Event eventToUpdate = eventsManager.findById(id);
         eventsTOService.updateEventEntity(eventToUpdate, updatedEventTO);
