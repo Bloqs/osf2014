@@ -52,5 +52,4 @@ public class ApplicationsManager implements ApplicationsManagerLocal {
         List applications = em.createNamedQuery("findAllApplications").getResultList();
         return applications;
     }
-
 }

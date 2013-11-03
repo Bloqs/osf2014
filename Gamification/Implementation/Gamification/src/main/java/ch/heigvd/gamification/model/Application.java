@@ -39,9 +39,9 @@ public class Application implements Serializable {
     
     @OneToMany(mappedBy="application", fetch = FetchType.LAZY)
     private Collection<Player> players;
-    @OneToMany(mappedBy="rule", fetch = FetchType.LAZY)
+    @OneToMany(mappedBy="application", fetch = FetchType.LAZY)
     private Collection<Rule> rules;
-    @OneToMany(mappedBy="event", fetch = FetchType.LAZY)
+    @OneToMany(mappedBy="application", fetch = FetchType.LAZY)
     private Collection<Event> events;
     
     public Application() {

@@ -40,7 +40,7 @@ public class Player implements Serializable {
 
     @ManyToOne
     private Application application;
-    @OneToMany(mappedBy="event", fetch = FetchType.LAZY)
+    @OneToMany(mappedBy="player", fetch = FetchType.LAZY)
     private Collection<Event> events;
     //private Collection<Badge> badges;
 
