@@ -52,8 +52,8 @@ public class EventResource {
     public Response createResource(PublicEventTO newEventTO) {
         Event newEvent = new Event();
         eventsTOService.updateEventEntity(newEvent, newEventTO);
-        long newRuleId = eventsManager.create(newEvent);
-        URI createdURI = context.getAbsolutePathBuilder().path(Long.toString(newRuleId)).build();
+        long newEventId = eventsManager.create(newEvent);
+        URI createdURI = context.getAbsolutePathBuilder().path(Long.toString(newEventId)).build();
         return Response.created(createdURI).build();
     }
     
