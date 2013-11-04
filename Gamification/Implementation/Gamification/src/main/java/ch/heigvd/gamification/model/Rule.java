@@ -3,7 +3,6 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package ch.heigvd.gamification.model;
 
 import java.io.Serializable;
@@ -28,69 +27,84 @@ import javax.persistence.NamedQuery;
 
 @Entity
 public class Rule implements Serializable {
+
+    private static final long serialVersionUID = 1L;
     
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO, generator = "rule")
-    private int id;
+    private Long id;
+    
     private String onEventType;
     private int numberOfPoints;
     @ManyToOne
     private Application application;
     /*@OneToOne(mappedBy="badge", fetch = FetchType.LAZY)
-    private Badge badge;*/
-    
-    public Rule () {}
-    public Rule (String event, int points, Application app){
-        this.onEventType = event;
-        this.numberOfPoints = points;
-        this.application = app;
-        /*this.badge = badge;*/
+     private Badge badge;*/
+
+    public Rule() {
+        onEventType = "UNDEF";
+        numberOfPoints = -1;
+        application = null;
     }
-    
-    public int getId (){
+
+    public Rule(Rule ruleData) {
+        this.onEventType = ruleData.onEventType;
+        this.numberOfPoints = ruleData.numberOfPoints;
+        this.application = ruleData.application;
+        //@todo this.badge = ruleData.badge;*/
+
+    }
+
+    public Long getId() {
         return id;
     }
-    
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
     public String getOnEventType() {
         return onEventType;
+    }
+
+    public void setOnEventType(String onEventType) {
+        this.onEventType = onEventType;
     }
 
     public int getNumberOfPoints() {
         return numberOfPoints;
     }
-    
-    public Application getApplication(){
-        return this.application;
-    }
-    
-    public void setOnEventType(String onEventType) {
-        this.onEventType = onEventType;
-    }
 
     public void setNumberOfPoints(int numberOfPoints) {
         this.numberOfPoints = numberOfPoints;
     }
-    
-    public void setApplication(Application application){
+
+    public Application getApplication() {
+        return application;
+    }
+
+    public void setApplication(Application application) {
         this.application = application;
     }
     
     @Override
-    public int hashCode(){
-        return this.id;
+    public int hashCode() {
+        int hash = 0;
+        hash += (id != null ? id.hashCode() : 0);
+        return hash;
     }
-        
+
     @Override
     public boolean equals(Object object) {
-        
+        // TODO: Warning - this method won't work in the case the apiKey fields are not set
         if (!(object instanceof Rule)) {
             return false;
         }
-        else{
-            Rule other = (Rule) object;
-            if (this.id == other.getId() ) return true;
+        Rule other = (Rule) object;
+        if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
+            return false;
         }
-        return false;
+        return true;
     }
 
     @Override

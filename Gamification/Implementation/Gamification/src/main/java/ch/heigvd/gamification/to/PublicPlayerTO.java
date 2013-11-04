@@ -80,13 +80,5 @@ public class PublicPlayerTO {
     public void setNumberOfPoints(Integer numberOfPoints) {
         this.numberOfPoints = numberOfPoints;
     }
-/*
-    public PublicApplicationTO getApplicationTO() {
-        return applicationTO;
-    }
 
-    public void setApplicationTO(PublicApplicationTO applicationTO) {
-        this.applicationTO = applicationTO;
-    }
-    */
 }

@@ -25,12 +25,14 @@ public class RulesManager implements RulesManagerLocal {
     
     @Override
     public long create(Rule ruleData) {
-        em.persist(ruleData);
-        return ruleData.getId();
+        Rule newRule = new Rule(ruleData);
+        em.persist(newRule);
+        return newRule.getId();
     }
 
     @Override
     public void update(Rule newState) throws EntityNotFoundException {
+        Rule ruleToUpdate = findById(newState.getId());
         em.merge(newState);
     }
 

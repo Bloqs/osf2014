@@ -23,6 +23,7 @@ public class RulesTOService implements RulesTOServiceLocal
     {
         ApplicationsTOService appTO = new ApplicationsTOService();
         PublicRuleTO rule = new PublicRuleTO(
+                source.getId(),
                 source.getOnEventType(),
                 source.getNumberOfPoints(),
                 appTO.buildPublicApplicationTO(source.getApplication())

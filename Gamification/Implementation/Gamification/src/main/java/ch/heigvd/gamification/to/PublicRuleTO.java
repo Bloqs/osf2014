@@ -3,7 +3,6 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package ch.heigvd.gamification.to;
 
 import javax.xml.bind.annotation.XmlRootElement;
@@ -14,49 +13,46 @@ import javax.xml.bind.annotation.XmlRootElement;
  */
 @XmlRootElement
 public class PublicRuleTO {
-    private int id;
+
+    private Long id;
     private String onEventType;
     private int numberOfPoints;
-    private PublicApplicationTO applicationTO;
-    
-    public PublicRuleTO () {}
-    
-    public PublicRuleTO (String event, int points, PublicApplicationTO app)
-    {
+    //private PublicApplicationTO applicationTO;
+
+    public PublicRuleTO() {
+    }
+
+    public PublicRuleTO(long id, String event, int points, PublicApplicationTO app) {
         this.onEventType = event;
         this.numberOfPoints = points;
-        this.applicationTO = app;
-    }
-    
-        public void setId(int id) {
         this.id = id;
-    }
-
-    public void setOnEventType(String onEventType) {
-        this.onEventType = onEventType;
-    }
-
-    public void setNumberOfPoints(int numberOfPoints) {
-        this.numberOfPoints = numberOfPoints;
-    }
-
-    public void setApplicationTO(PublicApplicationTO applicationTO) {
-        this.applicationTO = applicationTO;
-    }
-
-    public int getId() {
-        return id;
+        //this.applicationTO = app;
     }
 
     public String getOnEventType() {
         return onEventType;
     }
 
+    public void setOnEventType(String onEventType) {
+        this.onEventType = onEventType;
+    }
+
     public int getNumberOfPoints() {
         return numberOfPoints;
     }
 
-    public PublicApplicationTO getApplicationTO() {
-        return applicationTO;
+    public void setNumberOfPoints(int numberOfPoints) {
+        this.numberOfPoints = numberOfPoints;
     }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+
+
 }
