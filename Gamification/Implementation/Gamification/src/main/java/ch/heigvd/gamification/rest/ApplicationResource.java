@@ -1,9 +1,11 @@
 package ch.heigvd.gamification.rest;
 
+import ch.heigvd.gamification.exceptions.AuthentificationFailedException;
 import ch.heigvd.gamification.exceptions.EntityNotFoundException;
 import ch.heigvd.gamification.model.Application;
 import ch.heigvd.gamification.services.crud.ApplicationsManagerLocal;
 import ch.heigvd.gamification.services.to.ApplicationsTOServiceLocal;
+import ch.heigvd.gamification.to.PrivateApplicationTO;
 import ch.heigvd.gamification.to.PublicApplicationTO;
 import java.net.URI;
 import java.util.LinkedList;
@@ -20,6 +22,7 @@ import javax.ws.rs.POST;
 import javax.ws.rs.PUT;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
+import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
 /**
@@ -53,11 +56,11 @@ public class ApplicationResource {
      */
     @POST
     @Consumes({"application/json"})
-    public Response createResource(PublicApplicationTO newApplicationTO) {
+    public Response createResource(PrivateApplicationTO newApplicationTO) {
         Application newApplication = new Application();
         applicationsTOService.updateApplicationEntity(newApplication, newApplicationTO);
-        long newApplicationId = applicationsManager.create(newApplication);
-        URI createdURI = context.getAbsolutePathBuilder().path(Long.toString(newApplicationId)).build();
+        String newApplicationId = applicationsManager.create(newApplication);
+        URI createdURI = context.getAbsolutePathBuilder().path(newApplicationId).build();
         return Response.created(createdURI).build();
     }
 
@@ -84,10 +87,10 @@ public class ApplicationResource {
      * @return an instance of PublicApplicationTO
      */
     @GET
-    @Path("{id}")
+    @Path("{apiKey}")
     @Produces({"application/json", "application/xml"})
-    public PublicApplicationTO getResource(@PathParam("id") long id) throws EntityNotFoundException {
-        Application application = applicationsManager.findById(id);
+    public PublicApplicationTO getResource(@PathParam("apiKey") String apiKey) throws EntityNotFoundException {
+        Application application = applicationsManager.findById(apiKey);
         PublicApplicationTO applicationTO = applicationsTOService.buildPublicApplicationTO(application);
         return applicationTO;
     }
@@ -98,10 +101,10 @@ public class ApplicationResource {
      * @return an instance of PublicApplicationTO
      */
     @PUT
-    @Path("{id}")
+    @Path("{apiKey}/{apiSecret}")
     @Consumes({"application/json"})
-    public Response Resource(PublicApplicationTO updatedApplicationTO, @PathParam("id") long id) throws EntityNotFoundException {
-        Application applicationToUpdate = applicationsManager.findById(id);
+    public Response Resource(PrivateApplicationTO updatedApplicationTO, @PathParam("apiKey") String apiKey, @PathParam("apiSecret") String apiSecret) throws EntityNotFoundException, AuthentificationFailedException {
+        Application applicationToUpdate = applicationsManager.checkApiSecret(apiKey, apiSecret);
         applicationsTOService.updateApplicationEntity(applicationToUpdate, updatedApplicationTO);
         applicationsManager.update(applicationToUpdate);
         return Response.ok().build();
@@ -113,9 +116,10 @@ public class ApplicationResource {
      * @return an instance of PublicApplicationTO
      */
     @DELETE
-    @Path("{id}")
-    public Response deleteResource(@PathParam("id") long id) throws EntityNotFoundException {
-        applicationsManager.delete(id);
+    @Path("{apiKey}/{apiSecret}")
+    public Response deleteResource(@PathParam("apiKey") String apiKey, @PathParam("apiSecret") String apiSecret) throws EntityNotFoundException, AuthentificationFailedException {
+        Application applicationToDelete = applicationsManager.checkApiSecret(apiKey, apiSecret);
+        applicationsManager.delete(apiKey);
         return Response.ok().build();
     }
 

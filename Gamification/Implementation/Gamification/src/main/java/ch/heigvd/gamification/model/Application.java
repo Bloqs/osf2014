@@ -10,6 +10,8 @@ import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import ch.heigvd.gamification.model.Player;
 import java.util.ArrayList;
+import java.util.UUID;
+import javax.persistence.CascadeType;
 import javax.persistence.FetchType;
 import javax.persistence.OneToMany;
 
@@ -30,21 +32,21 @@ public class Application implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO, generator = "application")
-    private Long apiKey;
+    //@GeneratedValue(strategy = GenerationType.AUTO, generator = "application")
+    private String apiKey;
 
     private String name;
     private String description;
     private String apiSecret;
-    
-    @OneToMany(mappedBy="application", fetch = FetchType.LAZY)
+    @OneToMany(mappedBy="application", cascade=CascadeType.REMOVE)
     private Collection<Player> players;
-    @OneToMany(mappedBy="application", fetch = FetchType.LAZY)
-    private Collection<Rule> rules;
-    @OneToMany(mappedBy="application", fetch = FetchType.LAZY)
-    private Collection<Event> events;
+    //@OneToMany(mappedBy="rule", fetch = FetchType.LAZY)
+    //private Collection<Rule> rules;
+    //@OneToMany(mappedBy="event", fetch = FetchType.LAZY)
+    //private Collection<Event> events;
     
     public Application() {
+        apiKey = UUID.randomUUID().toString().toUpperCase();
         name = "UNDEF";
         description = "UNDEF";
         apiSecret = "UNDEF";
@@ -52,16 +54,17 @@ public class Application implements Serializable {
     }
 
     public Application(Application applicationData) {
+        this.apiKey = applicationData.apiKey;
         this.name = applicationData.name;
         this.description = applicationData.description;
         this.apiSecret = applicationData.apiSecret;
     }
 
-    public Long getApiKey() {
+    public String getApiKey() {
         return apiKey;
     }
 
-    public void setApiKey(Long apiKey) {
+    public void setApiKey(String apiKey) {
         this.apiKey = apiKey;
     }
 

@@ -2,6 +2,7 @@ package ch.heigvd.gamification.services.to;
 
 import ch.heigvd.gamification.model.Application;
 import ch.heigvd.gamification.model.Player;
+import ch.heigvd.gamification.to.PrivateApplicationTO;
 import ch.heigvd.gamification.to.PublicApplicationTO;
 import ch.heigvd.gamification.to.PublicPlayerTO;
 import java.util.Collection;
@@ -32,9 +33,10 @@ public class ApplicationsTOService implements ApplicationsTOServiceLocal {
     }
 
     @Override
-    public void updateApplicationEntity(Application existingEntity, PublicApplicationTO newState) {
+    public void updateApplicationEntity(Application existingEntity, PrivateApplicationTO newState) {
         existingEntity.setName(newState.getName());
         existingEntity.setDescription(newState.getDescription());
+        existingEntity.setApiSecret(newState.getApiSecret());
     }
 
 }
