@@ -3,7 +3,6 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package ch.heigvd.gamification.model;
 
 import java.io.Serializable;
@@ -28,65 +27,76 @@ import javax.persistence.NamedQuery;
 
 @Entity
 public class Event implements Serializable {
+
+    private static final long serialVersionUID = 1L;
+    
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO, generator = "event")
-    private int id;
+    private Long id;
     private String type;
     @ManyToOne
     private Application application;
     @ManyToOne
     private Player player;
-    
-    public Event(){}
-    public Event(String type, Application app, Player player){
-        this.type = type;
-        this.application = app;
-        this.player = player;
+
+    public Event() {
     }
-    
-    public int getId() {
+
+    public Event(Event eventData) {
+        this.type = eventData.type;
+        this.application = eventData.application;
+        this.player = eventData.player;
+    }
+
+    public Long getId() {
         return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public String getType() {
         return type;
     }
 
-    public Application getApplication() {
-        return application;
-    }
-
-    public Player getPlayer() {
-        return player;
-    }
-    
-    
     public void setType(String type) {
         this.type = type;
+    }
+
+    public Application getApplication() {
+        return application;
     }
 
     public void setApplication(Application application) {
         this.application = application;
     }
 
+    public Player getPlayer() {
+        return player;
+    }
+
     public void setPlayer(Player player) {
         this.player = player;
     }
-    
+
     @Override
-    public int hashCode(){
-        return this.id;
+    public int hashCode() {
+        int hash = 0;
+        hash += (id != null ? id.hashCode() : 0);
+        return hash;
     }
-        
+
     @Override
     public boolean equals(Object object) {
-        
-        if (!(object instanceof Rule)) {
+
+        if (!(object instanceof Event)) {
             return false;
-        }
-        else{
-            Rule other = (Rule) object;
-            if (this.id == other.getId() ) return true;
+        } else {
+            Event other = (Event) object;
+            if (this.id == other.getId()) {
+                return true;
+            }
         }
         return false;
     }
@@ -95,5 +105,5 @@ public class Event implements Serializable {
     public String toString() {
         return "ch.heigvd.gamification.model.Event[ id=" + this.id + " ]";
     }
-    
+
 }

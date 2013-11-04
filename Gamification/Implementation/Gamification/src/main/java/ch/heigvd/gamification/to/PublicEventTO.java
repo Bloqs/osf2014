@@ -3,29 +3,33 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package ch.heigvd.gamification.to;
+
+import javax.xml.bind.annotation.XmlRootElement;
 
 /**
  *
  * @author Jean-Luc
  */
+@XmlRootElement
 public class PublicEventTO {
-    
-    private int id;
+
+    private long id;
     private String type;
-    private PublicApplicationTO applicationTO;
-    private PublicPlayerTO playerTO;
-    
-    public PublicEventTO() {}
-    public PublicEventTO(String type, PublicApplicationTO app, PublicPlayerTO player)
-    {
-        this.type = type;
-        this.applicationTO = app;
-        this.playerTO = player;
+    //private PublicApplicationTO applicationTO;
+    //private PublicPlayerTO playerTO;
+
+    public PublicEventTO() {
     }
-    
-    public void setId(int id) {
+
+    public PublicEventTO(long id, String type) {
+        this.type = type;
+        this.id = id;
+        //this.applicationTO = app;
+        //this.playerTO = player;
+    }
+
+    public void setId(long id) {
         this.id = id;
     }
 
@@ -33,15 +37,15 @@ public class PublicEventTO {
         this.type = type;
     }
 
-    public void setApplicationTO(PublicApplicationTO applicationTO) {
+    /*public void setApplicationTO(PublicApplicationTO applicationTO) {
         this.applicationTO = applicationTO;
     }
 
     public void setPlayerTO(PublicPlayerTO playerTO) {
         this.playerTO = playerTO;
-    }
+    }*/
 
-    public int getId() {
+    public long getId() {
         return id;
     }
 
@@ -49,7 +53,7 @@ public class PublicEventTO {
         return type;
     }
 
-    public PublicApplicationTO getApplicationTO() {
+    /*public PublicApplicationTO getApplicationTO() {
         return applicationTO;
-    }
+    }*/
 }

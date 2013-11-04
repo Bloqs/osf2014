@@ -16,6 +16,6 @@ import javax.ejb.Local;
  */
 @Local
 public interface EventsTOServiceLocal {
-    public PublicEventTO buildPublicEventTo(Event source);
+    public PublicEventTO buildPublicEventTO(Event source);
     public void updateEventEntity(Event existingEntity, PublicEventTO newState);
 }

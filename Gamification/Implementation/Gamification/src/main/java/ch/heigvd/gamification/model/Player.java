@@ -2,6 +2,7 @@ package ch.heigvd.gamification.model;
 
 import java.io.Serializable;
 import java.util.Collection;
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -40,7 +41,7 @@ public class Player implements Serializable {
 
     @ManyToOne
     private Application application;
-    @OneToMany(mappedBy="player", fetch = FetchType.LAZY)
+    @OneToMany(mappedBy="player", fetch = FetchType.LAZY, cascade=CascadeType.REMOVE)
     private Collection<Event> events;
     //private Collection<Badge> badges;
 
@@ -108,6 +109,14 @@ public class Player implements Serializable {
         this.application = application;
     }
 
+    public Collection<Event> getEvents() {
+        return events;
+    }
+
+    public void setEvents(Collection<Event> events) {
+        this.events = events;
+    }
+    
     @Override
     public int hashCode() {
         int hash = 0;

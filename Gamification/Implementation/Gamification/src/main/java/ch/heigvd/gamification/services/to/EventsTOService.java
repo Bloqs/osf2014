@@ -8,6 +8,7 @@ package ch.heigvd.gamification.services.to;
 
 import ch.heigvd.gamification.model.Event;
 import ch.heigvd.gamification.to.PublicEventTO;
+import javax.ejb.EJB;
 import javax.ejb.Stateless;
 
 /**
@@ -17,17 +18,16 @@ import javax.ejb.Stateless;
 @Stateless
 public class EventsTOService  implements EventsTOServiceLocal {
     
+    @EJB
+    ApplicationsTOServiceLocal applicationsTOService;
+    
+    @EJB
+    PlayersTOServiceLocal playersTOService;
+    
     @Override
-    public PublicEventTO buildPublicEventTo(Event source)
+    public PublicEventTO buildPublicEventTO(Event source)
     {
-        ApplicationsTOService appTO = new ApplicationsTOService();
-        PlayersTOService playerTO = new PlayersTOService();
-        PublicEventTO event = new PublicEventTO(
-                source.getType(), 
-                appTO.buildPublicApplicationTO(source.getApplication()), 
-                playerTO.buildPublicPlayerTO(source.getPlayer())
-        );
-        return event;
+        return new PublicEventTO(source.getId(), source.getType());
     }
     
     @Override
