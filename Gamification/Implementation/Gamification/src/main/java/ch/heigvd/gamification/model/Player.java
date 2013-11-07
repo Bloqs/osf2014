@@ -18,12 +18,17 @@ import javax.persistence.OneToMany;
  *
  * @author Khaled Basbous
  */
-@NamedQueries(
-        @NamedQuery(
-                name = "findAllPlayers",
-                query = "SELECT p FROM Player p"
-        )
-)
+@NamedQueries({
+    @NamedQuery(
+            name = "findAllPlayers",
+            query = "SELECT p FROM Player p"
+    ),
+    @NamedQuery(
+            name = "findLeaderPlayers",
+            query = "SELECT p FROM Player p WHERE p.application.apiKey = :apiKey ORDER BY p.numberOfPoints DESC"
+    )
+
+})
 
 @Entity
 public class Player implements Serializable {
@@ -41,7 +46,7 @@ public class Player implements Serializable {
 
     @ManyToOne
     private Application application;
-    @OneToMany(mappedBy="player", fetch = FetchType.LAZY, cascade=CascadeType.REMOVE)
+    @OneToMany(mappedBy = "player", fetch = FetchType.LAZY, cascade = CascadeType.REMOVE)
     private Collection<Event> events;
     //private Collection<Badge> badges;
 
@@ -116,7 +121,7 @@ public class Player implements Serializable {
     public void setEvents(Collection<Event> events) {
         this.events = events;
     }
-    
+
     @Override
     public int hashCode() {
         int hash = 0;

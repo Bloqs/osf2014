@@ -33,6 +33,11 @@ public class ApplicationsTOService implements ApplicationsTOServiceLocal {
     }
 
     @Override
+    public PublicApplicationTO buildPublicSummaryApplicationTO(String name, String description){
+        return new PublicApplicationTO(null, name, description, null);
+    }
+    
+    @Override
     public void updateApplicationEntity(Application existingEntity, PrivateApplicationTO newState) {
         existingEntity.setName(newState.getName());
         existingEntity.setDescription(newState.getDescription());

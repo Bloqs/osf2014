@@ -3,16 +3,11 @@ package ch.heigvd.gamification.model;
 import java.io.Serializable;
 import java.util.Collection;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
-import ch.heigvd.gamification.model.Player;
-import java.util.ArrayList;
 import java.util.UUID;
 import javax.persistence.CascadeType;
-import javax.persistence.FetchType;
 import javax.persistence.OneToMany;
 
 /**

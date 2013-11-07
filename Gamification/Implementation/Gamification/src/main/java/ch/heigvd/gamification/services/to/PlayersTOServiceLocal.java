@@ -21,6 +21,9 @@ public interface PlayersTOServiceLocal {
      * @return the TO
      */
     public PublicPlayerTO buildPublicPlayerTO(Player source);
+    
+    public PublicPlayerTO buildPublicSummaryPlayerTO(String name, String lastName, Integer points);
+    
     // TODO: Warning - Update proprety in description when class application is complete
     /**
      * This method updates an existing JPA entity by merging the state of the

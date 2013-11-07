@@ -1,11 +1,8 @@
 package ch.heigvd.gamification.services.to;
 
-import ch.heigvd.gamification.exceptions.EntityNotFoundException;
 import ch.heigvd.gamification.model.Player;
 import ch.heigvd.gamification.services.crud.ApplicationsManagerLocal;
 import ch.heigvd.gamification.to.PublicPlayerTO;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
 
@@ -26,6 +23,12 @@ public class PlayersTOService implements PlayersTOServiceLocal {
     public PublicPlayerTO buildPublicPlayerTO(Player source) {
         PublicPlayerTO to = new PublicPlayerTO(source.getId() , source.getFirstName(), source.getLastName(), source.getEmail(), source.getNumberOfPoints()/*, applicationsTOService.buildPublicApplicationTO(source.getApplication())*/);
         return to;
+    }
+    
+    
+    @Override
+    public PublicPlayerTO buildPublicSummaryPlayerTO(String name, String lastName, Integer points){
+        return new PublicPlayerTO(null , name, lastName, null, points);
     }
 
     @Override

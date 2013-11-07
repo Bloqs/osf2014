@@ -22,6 +22,9 @@ public interface ApplicationsTOServiceLocal {
      * @return the TO
      */
     public PublicApplicationTO buildPublicApplicationTO(Application source);
+    
+    public PublicApplicationTO buildPublicSummaryApplicationTO(String name, String description);
+    
     // TODO: Warning - Update proprety in description when class application is complete
     /**
      * This method updates an existing JPA entity by merging the state of the

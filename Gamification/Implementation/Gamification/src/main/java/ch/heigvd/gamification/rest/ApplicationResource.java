@@ -88,7 +88,7 @@ public class ApplicationResource {
      */
     @GET
     @Path("{apiKey}")
-    @Produces({"application/json", "application/xml"})
+    @Produces({"application/json"})//, "application/xml"})
     public PublicApplicationTO getResource(@PathParam("apiKey") String apiKey) throws EntityNotFoundException {
         Application application = applicationsManager.findById(apiKey);
         PublicApplicationTO applicationTO = applicationsTOService.buildPublicApplicationTO(application);

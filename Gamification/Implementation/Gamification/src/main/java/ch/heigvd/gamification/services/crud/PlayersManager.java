@@ -66,5 +66,11 @@ public class PlayersManager implements PlayersManagerLocal {
         List players = em.createNamedQuery("findAllPlayers").getResultList();
         return players;
     }
-
+    
+    @Override
+    public List<Player> findLeader(String apiKey) {
+        List players = em.createNamedQuery("findLeaderPlayers").setMaxResults(2).setParameter("apiKey", apiKey).getResultList();
+        return players;
+    }
+    
 }

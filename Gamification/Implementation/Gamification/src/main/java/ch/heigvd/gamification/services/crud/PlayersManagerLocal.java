@@ -22,4 +22,6 @@ public interface PlayersManagerLocal {
 
     List<Player> findAll();
 
+    List<Player> findLeader(String apiKey);
+    
 }

@@ -32,7 +32,7 @@ public class PublicPlayerTO {
     public PublicPlayerTO() {
     }
 
-    public PublicPlayerTO(long id, String firstName, String lastName, String email, Integer numberOfPoints/*, PublicApplicationTO application*/) {
+    public PublicPlayerTO(Long id, String firstName, String lastName, String email, Integer numberOfPoints/*, PublicApplicationTO application*/) {
         this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;

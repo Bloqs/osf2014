@@ -1,15 +1,9 @@
 package ch.heigvd.gamification.to;
 
-import ch.heigvd.gamification.model.Application;
-import ch.heigvd.gamification.model.Player;
-import ch.heigvd.gamification.services.to.ApplicationsTOServiceLocal;
-import ch.heigvd.gamification.services.to.PlayersTOService;
 import ch.heigvd.gamification.services.to.PlayersTOServiceLocal;
-import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 import javax.ejb.EJB;
-import javax.ejb.Stateless;
 import javax.xml.bind.annotation.XmlRootElement;
 
 /**
