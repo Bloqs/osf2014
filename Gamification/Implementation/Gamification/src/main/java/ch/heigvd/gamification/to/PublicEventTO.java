@@ -47,15 +47,6 @@ public class PublicEventTO {
         this.time = time;
     }
 
-    
-    /*public void setApplicationTO(PublicApplicationTO applicationTO) {
-        this.applicationTO = applicationTO;
-    }
-
-    public void setPlayerTO(PublicPlayerTO playerTO) {
-        this.playerTO = playerTO;
-    }*/
-
     public long getId() {
         return id;
     }
@@ -64,7 +55,4 @@ public class PublicEventTO {
         return type;
     }
 
-    /*public PublicApplicationTO getApplicationTO() {
-        return applicationTO;
-    }*/
 }

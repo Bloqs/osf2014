@@ -6,14 +6,10 @@ import ch.heigvd.gamification.services.crud.ApplicationsManagerLocal;
 import ch.heigvd.gamification.services.crud.BadgesManagerLocal;
 import ch.heigvd.gamification.to.PublicBadgeTO;
 import ch.heigvd.gamification.services.to.BadgesTOServiceLocal;
-import java.net.MalformedURLException;
 import java.net.URI;
-import java.net.URL;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
 import javax.ws.rs.Consumes;
@@ -59,6 +55,7 @@ public class BadgeResource {
     /**
      * Creates a new Application resource from the provided representation
      *
+     * @param newBadgeTO
      * @return an instance of PublicApplicationTO
      */
     @POST

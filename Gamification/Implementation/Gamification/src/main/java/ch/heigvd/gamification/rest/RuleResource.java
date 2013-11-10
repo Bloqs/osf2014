@@ -82,8 +82,8 @@ public class RuleResource {
     @Produces(MediaType.APPLICATION_JSON)
     public List<PublicRuleTO> getResourceList(@PathParam("apiKey") String apiKey, @PathParam("apiSecret") String apiSecret) throws AuthentificationFailedException, EntityNotFoundException {
         Application app = applicationsManager.checkApiSecret(apiKey, apiSecret);
-        List<Rule> rules = new ArrayList<Rule>(app.getRules());
-        List<PublicRuleTO> result = new LinkedList<PublicRuleTO>();
+        List<Rule> rules = new ArrayList<>(app.getRules());
+        List<PublicRuleTO> result = new LinkedList<>();
         for (Rule rule : rules) {
             result.add(rulesTOService.buildPublicRuleTo(rule));
         }

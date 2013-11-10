@@ -96,8 +96,8 @@ public class EventResource {
     public List<PublicEventTO> getResourceList(@PathParam("apiKey") String apiKey, @PathParam("apiSecret") String apiSecret, @PathParam("playerId") Long playerId) throws AuthentificationFailedException, EntityNotFoundException {
         Application app = applicationsManager.checkApiSecret(apiKey, apiSecret);
         Player play = playersManager.findById(playerId);
-        List<Event> events = new ArrayList<Event>(play.getEvents());
-        List<PublicEventTO> result = new LinkedList<PublicEventTO>();
+        List<Event> events = new ArrayList<>(play.getEvents());
+        List<PublicEventTO> result = new LinkedList<>();
         for (Event event : events) {
             result.add(eventsTOService.buildPublicEventTO(event));
         }

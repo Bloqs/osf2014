@@ -57,7 +57,12 @@ public class PlayerResource {
     /**
      * Creates a new Application resource from the provided representation
      *
+     * @param apiKey
+     * @param apiSecret
+     * @param newPlayerTO
      * @return an instance of PublicApplicationTO
+     * @throws ch.heigvd.gamification.exceptions.AuthentificationFailedException
+     * @throws ch.heigvd.gamification.exceptions.EntityNotFoundException
      */
     @POST
     @Consumes({"application/json"})
@@ -75,14 +80,18 @@ public class PlayerResource {
     /**
      * Retrieves a representation of a list of Application resources
      *
+     * @param apiKey
+     * @param apiSecret
      * @return a list of PublicApplicationTO instances
+     * @throws ch.heigvd.gamification.exceptions.AuthentificationFailedException
+     * @throws ch.heigvd.gamification.exceptions.EntityNotFoundException
      */
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     public List<PublicPlayerTO> getResourceList(@PathParam("apiKey") String apiKey, @PathParam("apiSecret") String apiSecret) throws AuthentificationFailedException, EntityNotFoundException {
         Application app = applicationsManager.checkApiSecret(apiKey, apiSecret);
-        List<Player> players = new ArrayList<Player>(app.getPlayers());
-        List<PublicPlayerTO> result = new LinkedList<PublicPlayerTO>();
+        List<Player> players = new ArrayList<>(app.getPlayers());
+        List<PublicPlayerTO> result = new LinkedList<>();
         for (Player player : players) {
             result.add(playersTOService.buildPublicPlayerTO(player));
         }
@@ -92,7 +101,12 @@ public class PlayerResource {
     /**
      * Retrieves representation of an Application resource
      *
+     * @param apiKey
+     * @param apiSecret
+     * @param playerId
      * @return an instance of PublicApplicationTO
+     * @throws ch.heigvd.gamification.exceptions.EntityNotFoundException
+     * @throws ch.heigvd.gamification.exceptions.AuthentificationFailedException
      */
     @GET
     @Path("{playerId}")
@@ -110,7 +124,13 @@ public class PlayerResource {
     /**
      * Updates an Application resource
      *
+     * @param updatedPlayerTO
+     * @param apiKey
+     * @param apiSecret
+     * @param playerId
      * @return an instance of PublicApplicationTO
+     * @throws ch.heigvd.gamification.exceptions.EntityNotFoundException
+     * @throws ch.heigvd.gamification.exceptions.AuthentificationFailedException
      */
     @PUT
     @Path("{playerId}")
@@ -129,7 +149,12 @@ public class PlayerResource {
     /**
      * Deletes an Application resource
      *
+     * @param apiKey
+     * @param apiSecret
+     * @param playerId
      * @return an instance of PublicApplicationTO
+     * @throws ch.heigvd.gamification.exceptions.EntityNotFoundException
+     * @throws ch.heigvd.gamification.exceptions.AuthentificationFailedException
      */
     @DELETE
     @Path("{playerId}")

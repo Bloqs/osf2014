@@ -5,8 +5,6 @@
  */
 package ch.heigvd.gamification.to;
 
-import java.util.Collection;
-import java.util.List;
 import javax.xml.bind.annotation.XmlRootElement;
 
 /**

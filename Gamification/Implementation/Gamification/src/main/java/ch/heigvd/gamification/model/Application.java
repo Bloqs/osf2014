@@ -37,8 +37,6 @@ public class Application implements Serializable {
     private Collection<Player> players;
     @OneToMany(mappedBy="application", cascade=CascadeType.REMOVE)
     private Collection<Rule> rules;
-    //@OneToMany(mappedBy="event", fetch = FetchType.LAZY)
-    //private Collection<Event> events;
 
     public Collection<Rule> getRules() {
         return rules;

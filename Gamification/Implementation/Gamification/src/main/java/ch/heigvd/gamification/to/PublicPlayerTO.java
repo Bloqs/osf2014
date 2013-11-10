@@ -1,10 +1,7 @@
 package ch.heigvd.gamification.to;
 
-import ch.heigvd.gamification.model.Application;
-import ch.heigvd.gamification.services.to.ApplicationsTOServiceLocal;
 import java.util.Collection;
 import java.util.List;
-import javax.ejb.EJB;
 import javax.xml.bind.annotation.XmlRootElement;
 
 /**
@@ -28,8 +25,6 @@ public class PublicPlayerTO {
     private String email;
     
     private Integer numberOfPoints;
-
-    private PublicApplicationTO applicationTO;
     
     private Collection<PublicBadgeTO> badges;
     

@@ -8,7 +8,6 @@ import ch.heigvd.gamification.services.crud.ApplicationsManagerLocal;
 import ch.heigvd.gamification.services.crud.PlayersManagerLocal;
 import ch.heigvd.gamification.services.to.ApplicationsTOServiceLocal;
 import ch.heigvd.gamification.services.to.PlayersTOServiceLocal;
-import ch.heigvd.gamification.to.PrivateApplicationTO;
 import ch.heigvd.gamification.to.PublicLeaderBoardTO;
 import ch.heigvd.gamification.to.PublicPlayerTO;
 import java.util.ArrayList;

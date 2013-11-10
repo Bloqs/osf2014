@@ -28,7 +28,7 @@ public class PlayersTOService implements PlayersTOServiceLocal {
     
     @Override
     public PublicPlayerTO buildPublicPlayerTO(Player source) {
-        List<PublicBadgeTO> publicBadges = new LinkedList<PublicBadgeTO>();
+        List<PublicBadgeTO> publicBadges = new LinkedList<>();
         for (Badge badge : source.getBadges()) {
             publicBadges.add(badgesTOService.buildPublicBadgeTO(badge));
         }
@@ -49,12 +49,6 @@ public class PlayersTOService implements PlayersTOServiceLocal {
         existingEntity.setLastName(newState.getLastName());
         existingEntity.setEmail(newState.getEmail());
         existingEntity.setNumberOfPoints(newState.getNumberOfPoints());
-     /*   
-        try {
-            existingEntity.setApplication(applicationsManager.findById(newState.getApplicationTO().getApiKey()));
-        } catch (EntityNotFoundException ex) {
-            Logger.getLogger(PlayersTOService.class.getName()).log(Level.SEVERE, null, ex);
-        }*/
     }
 
 }

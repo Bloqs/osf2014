@@ -8,7 +8,6 @@ package ch.heigvd.gamification.services.to;
 
 import ch.heigvd.gamification.exceptions.EntityNotFoundException;
 import ch.heigvd.gamification.model.Rule;
-import ch.heigvd.gamification.services.crud.BadgesManager;
 import ch.heigvd.gamification.services.crud.BadgesManagerLocal;
 import ch.heigvd.gamification.to.PublicRuleTO;
 import java.util.logging.Level;
@@ -23,6 +22,8 @@ import javax.ejb.Stateless;
 @Stateless
 public class RulesTOService implements RulesTOServiceLocal 
 {
+    @EJB
+    private ApplicationsTOService applicationsTOService;
     
     @EJB
     BadgesTOServiceLocal badgesTOService;
@@ -32,10 +33,7 @@ public class RulesTOService implements RulesTOServiceLocal
     
     @Override
     public PublicRuleTO buildPublicRuleTo (Rule source)
-    {
-        ApplicationsTOService appTO = new ApplicationsTOService();
-        
-        
+    {  
         PublicRuleTO rule = new PublicRuleTO(
                 source.getId(), 
                 source.getOnEventType(),

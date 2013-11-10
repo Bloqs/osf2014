@@ -52,6 +52,7 @@ public class ApplicationResource {
     /**
      * Creates a new Application resource from the provided representation
      *
+     * @param newApplicationTO
      * @return an instance of PublicApplicationTO
      */
     @POST
@@ -73,7 +74,7 @@ public class ApplicationResource {
     @Produces(MediaType.APPLICATION_JSON)
     public List<PublicApplicationTO> getResourceList() {
         List<Application> applications = applicationsManager.findAll();
-        List<PublicApplicationTO> result = new LinkedList<PublicApplicationTO>();
+        List<PublicApplicationTO> result = new LinkedList<>();
         for (Application application : applications) {
             result.add(applicationsTOService.buildPublicApplicationTO(application));
             System.out.println("Taille "+application.getPlayers().size()+"\n");
@@ -84,7 +85,9 @@ public class ApplicationResource {
     /**
      * Retrieves representation of an Application resource
      *
+     * @param apiKey
      * @return an instance of PublicApplicationTO
+     * @throws ch.heigvd.gamification.exceptions.EntityNotFoundException
      */
     @GET
     @Path("{apiKey}")
@@ -98,7 +101,12 @@ public class ApplicationResource {
     /**
      * Updates an Application resource
      *
+     * @param updatedApplicationTO
+     * @param apiKey
+     * @param apiSecret
      * @return an instance of PublicApplicationTO
+     * @throws ch.heigvd.gamification.exceptions.EntityNotFoundException
+     * @throws ch.heigvd.gamification.exceptions.AuthentificationFailedException
      */
     @PUT
     @Path("{apiKey}/{apiSecret}")
@@ -113,7 +121,11 @@ public class ApplicationResource {
     /**
      * Deletes an Application resource
      *
+     * @param apiKey
+     * @param apiSecret
      * @return an instance of PublicApplicationTO
+     * @throws ch.heigvd.gamification.exceptions.EntityNotFoundException
+     * @throws ch.heigvd.gamification.exceptions.AuthentificationFailedException
      */
     @DELETE
     @Path("{apiKey}/{apiSecret}")

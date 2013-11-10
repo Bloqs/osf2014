@@ -5,7 +5,6 @@ import ch.heigvd.gamification.model.Player;
 import ch.heigvd.gamification.to.PrivateApplicationTO;
 import ch.heigvd.gamification.to.PublicApplicationTO;
 import ch.heigvd.gamification.to.PublicPlayerTO;
-import java.util.Collection;
 import java.util.LinkedList;
 import java.util.List;
 import javax.ejb.EJB;
@@ -23,7 +22,7 @@ public class ApplicationsTOService implements ApplicationsTOServiceLocal {
     
     @Override
     public PublicApplicationTO buildPublicApplicationTO(Application source) {
-        List<PublicPlayerTO> publicPlayers = new LinkedList<PublicPlayerTO>();
+        List<PublicPlayerTO> publicPlayers = new LinkedList<>();
         for (Player player : source.getPlayers()) {
             publicPlayers.add(playersTOService.buildPublicPlayerTO(player));
         }

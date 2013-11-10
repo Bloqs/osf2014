@@ -3,9 +3,6 @@ package ch.heigvd.gamification.services.crud;
 import ch.heigvd.gamification.exceptions.EntityNotFoundException;
 import ch.heigvd.gamification.model.Player;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import javax.ejb.EJB;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -30,13 +27,6 @@ public class PlayersManager implements PlayersManagerLocal {
     public long create(Player playerData) {
         Player newPlayer = new Player(playerData);
         em.persist(newPlayer);
-        /*try {
-            applicationsManager.findById(1).getPlayers().add(this.findById(1));
-            //newPlayer.getApplication().getPlayers().add(newPlayer);
-            //applicationsManager.update(newPlayer.getApplication());
-        } catch (EntityNotFoundException ex) {
-            Logger.getLogger(PlayersManager.class.getName()).log(Level.SEVERE, null, ex);
-        }*/
         return newPlayer.getId();
     }
 
