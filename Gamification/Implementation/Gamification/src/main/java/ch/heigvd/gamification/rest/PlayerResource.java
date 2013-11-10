@@ -78,7 +78,7 @@ public class PlayerResource {
      * @return a list of PublicApplicationTO instances
      */
     @GET
-    @Produces({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
+    @Produces(MediaType.APPLICATION_JSON)
     public List<PublicPlayerTO> getResourceList(@PathParam("apiKey") String apiKey, @PathParam("apiSecret") String apiSecret) throws AuthentificationFailedException, EntityNotFoundException {
         Application app = applicationsManager.checkApiSecret(apiKey, apiSecret);
         List<Player> players = new ArrayList<Player>(app.getPlayers());
@@ -96,7 +96,7 @@ public class PlayerResource {
      */
     @GET
     @Path("{playerId}")
-    @Produces({"application/json", "application/xml"})
+    @Produces(MediaType.APPLICATION_JSON)
     public PublicPlayerTO getResource(@PathParam("apiKey") String apiKey, @PathParam("apiSecret") String apiSecret, @PathParam("playerId") long playerId) throws EntityNotFoundException, AuthentificationFailedException {
         Application app = applicationsManager.checkApiSecret(apiKey, apiSecret);
         Player player = playersManager.findById(playerId);

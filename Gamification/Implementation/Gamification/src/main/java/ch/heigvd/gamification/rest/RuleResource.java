@@ -79,7 +79,7 @@ public class RuleResource {
     }
 
     @GET
-    @Produces({MediaType.APPLICATION_JSON})
+    @Produces(MediaType.APPLICATION_JSON)
     public List<PublicRuleTO> getResourceList(@PathParam("apiKey") String apiKey, @PathParam("apiSecret") String apiSecret) throws AuthentificationFailedException, EntityNotFoundException {
         Application app = applicationsManager.checkApiSecret(apiKey, apiSecret);
         List<Rule> rules = new ArrayList<Rule>(app.getRules());
@@ -92,7 +92,7 @@ public class RuleResource {
 
     @GET
     @Path("{ruleId}")
-    @Produces({"application/json"})
+    @Produces(MediaType.APPLICATION_JSON)
     public PublicRuleTO getResource(@PathParam("apiKey") String apiKey, @PathParam("apiSecret") String apiSecret, @PathParam("ruleId") Long ruleId) throws EntityNotFoundException, AuthentificationFailedException {
         Application app = applicationsManager.checkApiSecret(apiKey, apiSecret);
         Rule rule = rulesManager.findById(ruleId);

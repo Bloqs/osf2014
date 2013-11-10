@@ -88,7 +88,7 @@ public class EventResource {
     }
 
     @GET
-    @Produces({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
+    @Produces(MediaType.APPLICATION_JSON)
     public List<PublicEventTO> getResourceList(@PathParam("apiKey") String apiKey, @PathParam("apiSecret") String apiSecret, @PathParam("playerId") Long playerId) throws AuthentificationFailedException, EntityNotFoundException {
         Application app = applicationsManager.checkApiSecret(apiKey, apiSecret);
         Player play = playersManager.findById(playerId);
@@ -102,7 +102,7 @@ public class EventResource {
 
     @GET
     @Path("{eventId}")
-    @Produces({"application/json", "application/xml"})
+    @Produces(MediaType.APPLICATION_JSON)
     public PublicEventTO getResource(@PathParam("apiKey") String apiKey, @PathParam("apiSecret") String apiSecret, @PathParam("playerId") Long playerId, @PathParam("eventId") long eventId) throws EntityNotFoundException, AuthentificationFailedException {
         Application app = applicationsManager.checkApiSecret(apiKey, apiSecret);
         Player play = playersManager.findById(playerId);

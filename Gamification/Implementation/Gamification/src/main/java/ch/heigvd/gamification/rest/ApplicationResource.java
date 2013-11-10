@@ -70,7 +70,7 @@ public class ApplicationResource {
      * @return a list of PublicApplicationTO instances
      */
     @GET
-    @Produces({"application/json", "application/xml"})
+    @Produces(MediaType.APPLICATION_JSON)
     public List<PublicApplicationTO> getResourceList() {
         List<Application> applications = applicationsManager.findAll();
         List<PublicApplicationTO> result = new LinkedList<PublicApplicationTO>();
@@ -88,7 +88,7 @@ public class ApplicationResource {
      */
     @GET
     @Path("{apiKey}")
-    @Produces({"application/json"})//, "application/xml"})
+    @Produces(MediaType.APPLICATION_JSON)
     public PublicApplicationTO getResource(@PathParam("apiKey") String apiKey) throws EntityNotFoundException {
         Application application = applicationsManager.findById(apiKey);
         PublicApplicationTO applicationTO = applicationsTOService.buildPublicApplicationTO(application);
