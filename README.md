@@ -12,3 +12,6 @@ Open Source Framework
 2) Link to apiary :
   - http://docs.rggamification.apiary.io/
 
+3) Presentation : 
+  - https://drive.google.com/file/d/0B_T2yzmXk7OiamtxbzdxTDdMcFk/edit?usp=sharing
+
