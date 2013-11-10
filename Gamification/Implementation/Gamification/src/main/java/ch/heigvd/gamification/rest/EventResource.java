@@ -61,10 +61,10 @@ public class EventResource {
 
     @EJB
     PlayersManagerLocal playersManager;
-    
+
     @EJB
     BadgesManagerLocal badgesManager;
-    
+
     @EJB
     RulesManagerLocal rulesManager;
 
@@ -77,7 +77,7 @@ public class EventResource {
         Application app = applicationsManager.checkApiSecret(apiKey, apiSecret);
         Player play = playersManager.findById(playerId);
         Event newEvent = new Event();
-        Date date= new java.util.Date();
+        Date date = new java.util.Date();
         newEvent.setTimeEvent(new Timestamp(date.getTime()).getTime());
         newEvent.setApplication(app);
         newEvent.setPlayer(play);
@@ -119,21 +119,22 @@ public class EventResource {
         return new PublicEventTO();
     }
 
-    @PUT
-    @Path("{eventId}")
-    @Consumes({"application/json"})
-    public Response Resource(PublicEventTO updatedEventTO, @PathParam("apiKey") String apiKey, @PathParam("apiSecret") String apiSecret, @PathParam("playerId") Long playerId, @PathParam("eventId") long eventId) throws EntityNotFoundException, AuthentificationFailedException {
-        Application app = applicationsManager.checkApiSecret(apiKey, apiSecret);
-        Player play = playersManager.findById(playerId);
-        Event eventToUpdate = eventsManager.findById(eventId);
-        if (play.getEvents().contains(eventToUpdate)) {
-            eventsTOService.updateEventEntity(eventToUpdate, updatedEventTO);
-            eventsManager.update(eventToUpdate);
-            return Response.ok().build();
-        }
-        return Response.notModified().build();
-    }
-
+    /* Non necessaire pour gamification engine
+     @PUT
+     @Path("{eventId}")
+     @Consumes({"application/json"})
+     public Response Resource(PublicEventTO updatedEventTO, @PathParam("apiKey") String apiKey, @PathParam("apiSecret") String apiSecret, @PathParam("playerId") Long playerId, @PathParam("eventId") long eventId) throws EntityNotFoundException, AuthentificationFailedException {
+     Application app = applicationsManager.checkApiSecret(apiKey, apiSecret);
+     Player play = playersManager.findById(playerId);
+     Event eventToUpdate = eventsManager.findById(eventId);
+     if (play.getEvents().contains(eventToUpdate)) {
+     eventsTOService.updateEventEntity(eventToUpdate, updatedEventTO);
+     eventsManager.update(eventToUpdate);
+     return Response.ok().build();
+     }
+     return Response.notModified().build();
+     }
+     */
     @DELETE
     @Path("{eventId}")
     public Response deleteResource(@PathParam("apiKey") String apiKey, @PathParam("apiSecret") String apiSecret, @PathParam("playerId") Long playerId, @PathParam("eventId") long eventId) throws EntityNotFoundException, AuthentificationFailedException {
@@ -143,6 +144,9 @@ public class EventResource {
         if (play.getEvents().contains(eventToDelete)) {
             play.getEvents().remove(eventToDelete);
             eventsManager.delete(eventId);
+            Rule rule = rulesManager.findByType(eventToDelete.getType());
+            play.getBadges().remove(rule.getBadge());
+            play.setNumberOfPoints(play.getNumberOfPoints() - rule.getNumberOfPoints());
             return Response.ok().build();
         }
         return Response.notModified().build();
