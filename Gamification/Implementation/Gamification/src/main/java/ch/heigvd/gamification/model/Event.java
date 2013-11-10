@@ -34,6 +34,7 @@ public class Event implements Serializable {
     @GeneratedValue(strategy = GenerationType.AUTO, generator = "event")
     private Long id;
     private String type;
+    private Long timeEvent;
     @ManyToOne
     private Application application;
     @ManyToOne
@@ -46,12 +47,21 @@ public class Event implements Serializable {
         this.type = eventData.type;
         this.application = eventData.application;
         this.player = eventData.player;
+        this.timeEvent = eventData.getTimeEvent();
     }
 
     public Long getId() {
         return id;
     }
 
+    public Long getTimeEvent() {
+        return timeEvent;
+    }
+
+    public void setTimeEvent(Long timeEvent) {
+        this.timeEvent = timeEvent;
+    }
+    
     public void setId(Long id) {
         this.id = id;
     }

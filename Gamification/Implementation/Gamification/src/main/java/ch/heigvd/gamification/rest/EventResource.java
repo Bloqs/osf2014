@@ -19,7 +19,9 @@ import ch.heigvd.gamification.services.crud.RulesManagerLocal;
 import ch.heigvd.gamification.services.to.EventsTOServiceLocal;
 import ch.heigvd.gamification.to.PublicEventTO;
 import java.net.URI;
+import java.sql.Timestamp;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
 import javax.ejb.EJB;
@@ -75,6 +77,8 @@ public class EventResource {
         Application app = applicationsManager.checkApiSecret(apiKey, apiSecret);
         Player play = playersManager.findById(playerId);
         Event newEvent = new Event();
+        Date date= new java.util.Date();
+        newEvent.setTimeEvent(new Timestamp(date.getTime()).getTime());
         newEvent.setApplication(app);
         newEvent.setPlayer(play);
         eventsTOService.updateEventEntity(newEvent, newEventTO);

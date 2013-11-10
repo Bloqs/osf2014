@@ -27,7 +27,7 @@ public class EventsTOService  implements EventsTOServiceLocal {
     @Override
     public PublicEventTO buildPublicEventTO(Event source)
     {
-        return new PublicEventTO(source.getId(), source.getType());
+        return new PublicEventTO(source.getId(), source.getType(), source.getTimeEvent());
     }
     
     @Override
