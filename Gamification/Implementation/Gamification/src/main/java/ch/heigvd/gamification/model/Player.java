@@ -48,7 +48,8 @@ public class Player implements Serializable {
     private Application application;
     @OneToMany(mappedBy = "player", fetch = FetchType.LAZY, cascade = CascadeType.REMOVE)
     private Collection<Event> events;
-    //private Collection<Badge> badges;
+    @OneToMany
+    private Collection<Badge> badges;
 
     public Player() {
         firstName = "UNDEF";
@@ -120,6 +121,14 @@ public class Player implements Serializable {
 
     public void setEvents(Collection<Event> events) {
         this.events = events;
+    }
+
+    public Collection<Badge> getBadges() {
+        return badges;
+    }
+
+    public void setBadges(Collection<Badge> badges) {
+        this.badges = badges;
     }
 
     @Override

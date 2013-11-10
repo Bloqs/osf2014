@@ -5,6 +5,8 @@
  */
 package ch.heigvd.gamification.to;
 
+import java.util.Collection;
+import java.util.List;
 import javax.xml.bind.annotation.XmlRootElement;
 
 /**
@@ -17,15 +19,17 @@ public class PublicRuleTO {
     private Long id;
     private String onEventType;
     private int numberOfPoints;
+    private PublicBadgeTO badge;
     //private PublicApplicationTO applicationTO;
 
     public PublicRuleTO() {
     }
 
-    public PublicRuleTO(long id, String event, int points, PublicApplicationTO app) {
+    public PublicRuleTO(long id, String event, int points, PublicBadgeTO badge/*, PublicApplicationTO app*/) {
         this.onEventType = event;
         this.numberOfPoints = points;
         this.id = id;
+        this.badge = badge;
         //this.applicationTO = app;
     }
 
@@ -53,6 +57,12 @@ public class PublicRuleTO {
         this.id = id;
     }
 
+    public PublicBadgeTO getBadge() {
+        return badge;
+    }
 
+    public void setBadge(PublicBadgeTO badge) {
+        this.badge = badge;
+    }
 
 }

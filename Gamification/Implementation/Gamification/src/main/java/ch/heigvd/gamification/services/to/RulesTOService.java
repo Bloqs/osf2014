@@ -6,8 +6,14 @@
 
 package ch.heigvd.gamification.services.to;
 
+import ch.heigvd.gamification.exceptions.EntityNotFoundException;
 import ch.heigvd.gamification.model.Rule;
+import ch.heigvd.gamification.services.crud.BadgesManager;
+import ch.heigvd.gamification.services.crud.BadgesManagerLocal;
 import ch.heigvd.gamification.to.PublicRuleTO;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.ejb.EJB;
 import javax.ejb.Stateless;
 
 /**
@@ -18,15 +24,24 @@ import javax.ejb.Stateless;
 public class RulesTOService implements RulesTOServiceLocal 
 {
     
+    @EJB
+    BadgesTOServiceLocal badgesTOService;
+    
+    @EJB
+    BadgesManagerLocal badgesManager;
+    
     @Override
     public PublicRuleTO buildPublicRuleTo (Rule source)
     {
         ApplicationsTOService appTO = new ApplicationsTOService();
+        
+        
         PublicRuleTO rule = new PublicRuleTO(
-                source.getId(),
+                source.getId(), 
                 source.getOnEventType(),
                 source.getNumberOfPoints(),
-                appTO.buildPublicApplicationTO(source.getApplication())
+                badgesTOService.buildPublicBadgeTO(source.getBadge())/*,
+                appTO.buildPublicApplicationTO(source.getApplication())*/
         );
         return rule;
     }
@@ -36,6 +51,11 @@ public class RulesTOService implements RulesTOServiceLocal
     {
         existingEntity.setOnEventType(newState.getOnEventType());
         existingEntity.setNumberOfPoints(newState.getNumberOfPoints());
+        try {
+            existingEntity.setBadge(badgesManager.findById(newState.getBadge().getId()));
+        } catch (EntityNotFoundException ex) {
+            Logger.getLogger(RulesTOService.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
     
 }

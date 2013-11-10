@@ -38,8 +38,8 @@ public class Rule implements Serializable {
     private int numberOfPoints;
     @ManyToOne
     private Application application;
-    /*@OneToOne(mappedBy="badge", fetch = FetchType.LAZY)
-     private Badge badge;*/
+    @ManyToOne
+     private Badge badge;
 
     public Rule() {
         onEventType = "UNDEF";
@@ -51,8 +51,7 @@ public class Rule implements Serializable {
         this.onEventType = ruleData.onEventType;
         this.numberOfPoints = ruleData.numberOfPoints;
         this.application = ruleData.application;
-        //@todo this.badge = ruleData.badge;*/
-
+        this.badge = ruleData.badge;
     }
 
     public Long getId() {
@@ -85,6 +84,14 @@ public class Rule implements Serializable {
 
     public void setApplication(Application application) {
         this.application = application;
+    }
+
+    public Badge getBadge() {
+        return badge;
+    }
+
+    public void setBadge(Badge badge) {
+        this.badge = badge;
     }
     
     @Override

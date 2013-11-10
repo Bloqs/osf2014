@@ -3,18 +3,19 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package ch.heigvd.gamification.rest;
 
 import ch.heigvd.gamification.exceptions.AuthentificationFailedException;
 import ch.heigvd.gamification.exceptions.EntityNotFoundException;
 import ch.heigvd.gamification.model.Application;
-import ch.heigvd.gamification.model.Player;
 import ch.heigvd.gamification.model.Rule;
 import ch.heigvd.gamification.services.crud.ApplicationsManagerLocal;
+import ch.heigvd.gamification.services.crud.BadgesManagerLocal;
 import ch.heigvd.gamification.services.crud.RulesManagerLocal;
+import ch.heigvd.gamification.services.to.BadgesTOServiceLocal;
 import ch.heigvd.gamification.services.to.RulesTOServiceLocal;
 import ch.heigvd.gamification.to.PublicRuleTO;
+import java.net.MalformedURLException;
 import java.net.URI;
 import java.util.ArrayList;
 import java.util.LinkedList;
@@ -41,7 +42,7 @@ import javax.ws.rs.core.UriInfo;
 @Stateless
 @Path("applications/{apiKey}/{apiSecret}/rules")
 public class RuleResource {
-    
+
     @Context
     private UriInfo context;
 
@@ -50,18 +51,26 @@ public class RuleResource {
 
     @EJB
     RulesTOServiceLocal rulesTOService;
-    
+
     @EJB
     ApplicationsManagerLocal applicationsManager;
-    
-    public RuleResource() {}
-    
+
+    @EJB
+    BadgesManagerLocal badgesManager;
+
+    @EJB
+    BadgesTOServiceLocal badgesTOService;
+
+    public RuleResource() {
+    }
+
     @POST
     @Consumes({"application/json"})
-    public Response createResource(@PathParam("apiKey") String apiKey, @PathParam("apiSecret") String apiSecret, PublicRuleTO newRuleTO) throws AuthentificationFailedException, EntityNotFoundException {
+    public Response createResource(@PathParam("apiKey") String apiKey, @PathParam("apiSecret") String apiSecret, PublicRuleTO newRuleTO) throws AuthentificationFailedException, EntityNotFoundException, MalformedURLException {
         Application app = applicationsManager.checkApiSecret(apiKey, apiSecret);
         Rule newRule = new Rule();
         newRule.setApplication(app);
+        newRule.setBadge(badgesManager.findById(newRuleTO.getBadge().getId()));
         rulesTOService.updateRuleEntity(newRule, newRuleTO);
         long newRuleId = rulesManager.create(newRule);
         app.getRules().add(rulesManager.findById(newRuleId));
@@ -70,7 +79,7 @@ public class RuleResource {
     }
 
     @GET
-    @Produces({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
+    @Produces({MediaType.APPLICATION_JSON})
     public List<PublicRuleTO> getResourceList(@PathParam("apiKey") String apiKey, @PathParam("apiSecret") String apiSecret) throws AuthentificationFailedException, EntityNotFoundException {
         Application app = applicationsManager.checkApiSecret(apiKey, apiSecret);
         List<Rule> rules = new ArrayList<Rule>(app.getRules());
@@ -83,11 +92,11 @@ public class RuleResource {
 
     @GET
     @Path("{ruleId}")
-    @Produces({"application/json", "application/xml"})
+    @Produces({"application/json"})
     public PublicRuleTO getResource(@PathParam("apiKey") String apiKey, @PathParam("apiSecret") String apiSecret, @PathParam("ruleId") Long ruleId) throws EntityNotFoundException, AuthentificationFailedException {
         Application app = applicationsManager.checkApiSecret(apiKey, apiSecret);
         Rule rule = rulesManager.findById(ruleId);
-         if (app.getRules().contains(rule)) {
+        if (app.getRules().contains(rule)) {
             PublicRuleTO ruleTO = rulesTOService.buildPublicRuleTo(rule);
             return ruleTO;
         }
@@ -101,6 +110,7 @@ public class RuleResource {
         Application app = applicationsManager.checkApiSecret(apiKey, apiSecret);
         Rule ruleToUpdate = rulesManager.findById(ruleId);
         if (app.getRules().contains(ruleToUpdate)) {
+            ruleToUpdate.setBadge(badgesManager.findById(ruleToUpdate.getBadge().getId()));
             rulesTOService.updateRuleEntity(ruleToUpdate, updatedRuleTO);
             rulesManager.update(ruleToUpdate);
             return Response.ok().build();

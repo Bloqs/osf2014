@@ -2,6 +2,8 @@ package ch.heigvd.gamification.to;
 
 import ch.heigvd.gamification.model.Application;
 import ch.heigvd.gamification.services.to.ApplicationsTOServiceLocal;
+import java.util.Collection;
+import java.util.List;
 import javax.ejb.EJB;
 import javax.xml.bind.annotation.XmlRootElement;
 
@@ -29,15 +31,18 @@ public class PublicPlayerTO {
 
     private PublicApplicationTO applicationTO;
     
+    private Collection<PublicBadgeTO> badges;
+    
     public PublicPlayerTO() {
     }
 
-    public PublicPlayerTO(Long id, String firstName, String lastName, String email, Integer numberOfPoints/*, PublicApplicationTO application*/) {
+    public PublicPlayerTO(Long id, String firstName, String lastName, String email, Integer numberOfPoints, List<PublicBadgeTO> badges/*, PublicApplicationTO application*/) {
         this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
         this.numberOfPoints = numberOfPoints;
+        this.badges = badges;
         //this.applicationTO = application;
     }
 
