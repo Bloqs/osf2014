@@ -22,8 +22,6 @@ import javax.ejb.Stateless;
 @Stateless
 public class RulesTOService implements RulesTOServiceLocal 
 {
-    @EJB
-    private ApplicationsTOService applicationsTOService;
     
     @EJB
     BadgesTOServiceLocal badgesTOService;

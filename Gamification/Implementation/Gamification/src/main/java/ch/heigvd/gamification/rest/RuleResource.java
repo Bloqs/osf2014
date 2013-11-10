@@ -47,10 +47,10 @@ public class RuleResource {
     private UriInfo context;
 
     @EJB
-    RulesManagerLocal rulesManager;
-
-    @EJB
     RulesTOServiceLocal rulesTOService;
+    
+    @EJB
+    RulesManagerLocal rulesManager;
 
     @EJB
     ApplicationsManagerLocal applicationsManager;

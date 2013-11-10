@@ -8,6 +8,7 @@ import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import java.util.UUID;
 import javax.persistence.CascadeType;
+import javax.persistence.FetchType;
 import javax.persistence.OneToMany;
 
 /**
@@ -33,9 +34,9 @@ public class Application implements Serializable {
     private String name;
     private String description;
     private String apiSecret;
-    @OneToMany(mappedBy="application", cascade=CascadeType.REMOVE)
+    @OneToMany(mappedBy="application", cascade=CascadeType.REMOVE, fetch = FetchType.LAZY)
     private Collection<Player> players;
-    @OneToMany(mappedBy="application", cascade=CascadeType.REMOVE)
+    @OneToMany(mappedBy="application", cascade=CascadeType.REMOVE, fetch = FetchType.LAZY)
     private Collection<Rule> rules;
 
     public Collection<Rule> getRules() {
