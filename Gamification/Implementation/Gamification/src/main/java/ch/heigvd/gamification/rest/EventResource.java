@@ -75,6 +75,7 @@ public class EventResource {
     public Response createResource(@PathParam("apiKey") String apiKey, @PathParam("apiSecret") String apiSecret, @PathParam("playerId") Long playerId, PublicEventTO newEventTO) throws AuthentificationFailedException, EntityNotFoundException {
         Application app = applicationsManager.checkApiSecret(apiKey, apiSecret);
         Player play = playersManager.findById(playerId);
+        Rule rule = rulesManager.findByType(newEventTO.getType());
         Event newEvent = new Event();
         Date date = new java.util.Date();
         newEvent.setTimeEvent(new Timestamp(date.getTime()).getTime());
@@ -83,7 +84,6 @@ public class EventResource {
         eventsTOService.updateEventEntity(newEvent, newEventTO);
         long newEventId = eventsManager.create(newEvent);
         play.getEvents().add(eventsManager.findById(newEventId));
-        Rule rule = rulesManager.findByType(newEventTO.getType());
         if (rule.getBadge() != null) {
             play.getBadges().add(rule.getBadge());
         }
