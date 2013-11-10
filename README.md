@@ -1,10 +1,7 @@
-osf2014
-=======
-
 Open Source Framework
+======================================================
 
-
--->  Gamification objects implemented :
+1) Gamification objects implemented :
   - Application
   - Player
   - Event
@@ -12,6 +9,6 @@ Open Source Framework
   - Badge
   - Leaderboard
 
---> Link to apiary :
+2) Link to apiary :
   - http://docs.rggamification.apiary.io/
 
