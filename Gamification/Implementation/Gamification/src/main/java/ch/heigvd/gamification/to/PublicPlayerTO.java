@@ -86,4 +86,12 @@ public class PublicPlayerTO {
         this.numberOfPoints = numberOfPoints;
     }
 
+    public Collection<PublicBadgeTO> getBadges() {
+        return badges;
+    }
+
+    public void setBadges(Collection<PublicBadgeTO> badges) {
+        this.badges = badges;
+    }
+
 }

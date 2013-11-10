@@ -10,9 +10,12 @@ import ch.heigvd.gamification.exceptions.EntityNotFoundException;
 import ch.heigvd.gamification.model.Application;
 import ch.heigvd.gamification.model.Event;
 import ch.heigvd.gamification.model.Player;
+import ch.heigvd.gamification.model.Rule;
 import ch.heigvd.gamification.services.crud.ApplicationsManagerLocal;
+import ch.heigvd.gamification.services.crud.BadgesManagerLocal;
 import ch.heigvd.gamification.services.crud.EventsManagerLocal;
 import ch.heigvd.gamification.services.crud.PlayersManagerLocal;
+import ch.heigvd.gamification.services.crud.RulesManagerLocal;
 import ch.heigvd.gamification.services.to.EventsTOServiceLocal;
 import ch.heigvd.gamification.to.PublicEventTO;
 import java.net.URI;
@@ -56,6 +59,12 @@ public class EventResource {
 
     @EJB
     PlayersManagerLocal playersManager;
+    
+    @EJB
+    BadgesManagerLocal badgesManager;
+    
+    @EJB
+    RulesManagerLocal rulesManager;
 
     public EventResource() {
     }
@@ -71,6 +80,9 @@ public class EventResource {
         eventsTOService.updateEventEntity(newEvent, newEventTO);
         long newEventId = eventsManager.create(newEvent);
         play.getEvents().add(eventsManager.findById(newEventId));
+        Rule rule = rulesManager.findByType(newEventTO.getType());
+        play.getBadges().add(rule.getBadge());
+        play.setNumberOfPoints(play.getNumberOfPoints() + rule.getNumberOfPoints());
         URI createdURI = context.getAbsolutePathBuilder().path(Long.toString(newEventId)).build();
         return Response.created(createdURI).build();
     }

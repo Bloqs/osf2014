@@ -25,6 +25,8 @@ public interface RulesManagerLocal {
     void delete(long id) throws EntityNotFoundException;
 
     Rule findById(long id) throws EntityNotFoundException;
+    
+    Rule findByType(String type) throws EntityNotFoundException;
 
     List<Rule> findAll();
 }

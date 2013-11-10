@@ -18,28 +18,32 @@ import javax.persistence.NamedQuery;
  *
  * @author Jean-Luc
  */
-@NamedQueries(
-        @NamedQuery(
-                name = "findAllRules",
-                query = "SELECT r FROM Rule r"
-        )
-)
+@NamedQueries({
+    @NamedQuery(
+            name = "findAllRules",
+            query = "SELECT r FROM Rule r"
+    ),
+    @NamedQuery(
+            name = "findRuleByType",
+            query = "SELECT r FROM Rule r WHERE r.onEventType = :type"
+    )
+})
 
 @Entity
 public class Rule implements Serializable {
 
     private static final long serialVersionUID = 1L;
-    
+
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO, generator = "rule")
     private Long id;
-    
+
     private String onEventType;
     private int numberOfPoints;
     @ManyToOne
     private Application application;
     @ManyToOne
-     private Badge badge;
+    private Badge badge;
 
     public Rule() {
         onEventType = "UNDEF";
@@ -93,7 +97,7 @@ public class Rule implements Serializable {
     public void setBadge(Badge badge) {
         this.badge = badge;
     }
-    
+
     @Override
     public int hashCode() {
         int hash = 0;

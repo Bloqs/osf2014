@@ -52,6 +52,11 @@ public class RulesManager implements RulesManagerLocal {
     }
 
     @Override
+    public Rule findByType(String type) throws EntityNotFoundException {
+        return (Rule) em.createNamedQuery("findRuleByType").setParameter("type", type).getSingleResult();
+    }
+
+    @Override
     public List<Rule> findAll() {
         return em.createNamedQuery("findAllRules").getResultList();
     }
