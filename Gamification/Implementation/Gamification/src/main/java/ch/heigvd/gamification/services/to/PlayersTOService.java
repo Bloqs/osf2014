@@ -1,8 +1,12 @@
 package ch.heigvd.gamification.services.to;
 
+import ch.heigvd.gamification.model.Badge;
 import ch.heigvd.gamification.model.Player;
 import ch.heigvd.gamification.services.crud.ApplicationsManagerLocal;
+import ch.heigvd.gamification.to.PublicBadgeTO;
 import ch.heigvd.gamification.to.PublicPlayerTO;
+import java.util.LinkedList;
+import java.util.List;
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
 
@@ -19,16 +23,24 @@ public class PlayersTOService implements PlayersTOServiceLocal {
     @EJB
     ApplicationsTOServiceLocal applicationsTOService;
     
+    @EJB
+    BadgesTOServiceLocal badgesTOService;
+    
     @Override
     public PublicPlayerTO buildPublicPlayerTO(Player source) {
-        PublicPlayerTO to = new PublicPlayerTO(source.getId() , source.getFirstName(), source.getLastName(), source.getEmail(), source.getNumberOfPoints()/*, applicationsTOService.buildPublicApplicationTO(source.getApplication())*/);
+        List<PublicBadgeTO> publicBadges = new LinkedList<PublicBadgeTO>();
+        for (Badge badge : source.getBadges()) {
+            publicBadges.add(badgesTOService.buildPublicBadgeTO(badge));
+        }
+        
+        PublicPlayerTO to = new PublicPlayerTO(source.getId() , source.getFirstName(), source.getLastName(), source.getEmail(), source.getNumberOfPoints(), publicBadges/*, applicationsTOService.buildPublicApplicationTO(source.getApplication())*/);
         return to;
     }
     
     
     @Override
     public PublicPlayerTO buildPublicSummaryPlayerTO(String name, String lastName, Integer points){
-        return new PublicPlayerTO(null , name, lastName, null, points);
+        return new PublicPlayerTO(null , name, lastName, null, points, null);
     }
 
     @Override
