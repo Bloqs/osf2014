@@ -48,7 +48,7 @@ public class RuleResource {
 
     @EJB
     RulesTOServiceLocal rulesTOService;
-    
+
     @EJB
     RulesManagerLocal rulesManager;
 
@@ -70,7 +70,9 @@ public class RuleResource {
         Application app = applicationsManager.checkApiSecret(apiKey, apiSecret);
         Rule newRule = new Rule();
         newRule.setApplication(app);
-        newRule.setBadge(badgesManager.findById(newRuleTO.getBadge().getId()));
+        if (newRuleTO.getBadge() != null) {
+            newRule.setBadge(badgesManager.findById(newRuleTO.getBadge().getId()));
+        }
         rulesTOService.updateRuleEntity(newRule, newRuleTO);
         long newRuleId = rulesManager.create(newRule);
         app.getRules().add(rulesManager.findById(newRuleId));
@@ -110,7 +112,9 @@ public class RuleResource {
         Application app = applicationsManager.checkApiSecret(apiKey, apiSecret);
         Rule ruleToUpdate = rulesManager.findById(ruleId);
         if (app.getRules().contains(ruleToUpdate)) {
-            ruleToUpdate.setBadge(badgesManager.findById(ruleToUpdate.getBadge().getId()));
+            if (ruleToUpdate.getBadge() != null) {
+                ruleToUpdate.setBadge(badgesManager.findById(ruleToUpdate.getBadge().getId()));
+            }
             rulesTOService.updateRuleEntity(ruleToUpdate, updatedRuleTO);
             rulesManager.update(ruleToUpdate);
             return Response.ok().build();

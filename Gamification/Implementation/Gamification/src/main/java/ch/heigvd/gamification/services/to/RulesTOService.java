@@ -3,12 +3,12 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package ch.heigvd.gamification.services.to;
 
 import ch.heigvd.gamification.exceptions.EntityNotFoundException;
 import ch.heigvd.gamification.model.Rule;
 import ch.heigvd.gamification.services.crud.BadgesManagerLocal;
+import ch.heigvd.gamification.to.PublicBadgeTO;
 import ch.heigvd.gamification.to.PublicRuleTO;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -20,38 +20,41 @@ import javax.ejb.Stateless;
  * @author Jean-Luc
  */
 @Stateless
-public class RulesTOService implements RulesTOServiceLocal 
-{
-    
+public class RulesTOService implements RulesTOServiceLocal {
+
     @EJB
     BadgesTOServiceLocal badgesTOService;
-    
+
     @EJB
     BadgesManagerLocal badgesManager;
-    
+
     @Override
-    public PublicRuleTO buildPublicRuleTo (Rule source)
-    {  
+    public PublicRuleTO buildPublicRuleTo(Rule source) {
+        PublicBadgeTO publicBadge = null;
+        if (source.getBadge() != null) {
+            publicBadge = badgesTOService.buildPublicBadgeTO(source.getBadge());
+        }
         PublicRuleTO rule = new PublicRuleTO(
-                source.getId(), 
+                source.getId(),
                 source.getOnEventType(),
                 source.getNumberOfPoints(),
-                badgesTOService.buildPublicBadgeTO(source.getBadge())/*,
-                appTO.buildPublicApplicationTO(source.getApplication())*/
+                publicBadge
         );
         return rule;
     }
-    
+
     @Override
-    public void updateRuleEntity(Rule existingEntity, PublicRuleTO newState)
-    {
+    public void updateRuleEntity(Rule existingEntity, PublicRuleTO newState) {
         existingEntity.setOnEventType(newState.getOnEventType());
         existingEntity.setNumberOfPoints(newState.getNumberOfPoints());
-        try {
-            existingEntity.setBadge(badgesManager.findById(newState.getBadge().getId()));
-        } catch (EntityNotFoundException ex) {
-            Logger.getLogger(RulesTOService.class.getName()).log(Level.SEVERE, null, ex);
+        if (newState.getBadge() != null) {
+            try {
+                existingEntity.setBadge(badgesManager.findById(newState.getBadge().getId()));
+            } catch (EntityNotFoundException ex) {
+                Logger.getLogger(RulesTOService.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
+
     }
-    
+
 }

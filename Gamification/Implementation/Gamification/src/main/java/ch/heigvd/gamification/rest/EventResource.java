@@ -30,7 +30,6 @@ import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
-import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
@@ -85,7 +84,9 @@ public class EventResource {
         long newEventId = eventsManager.create(newEvent);
         play.getEvents().add(eventsManager.findById(newEventId));
         Rule rule = rulesManager.findByType(newEventTO.getType());
-        play.getBadges().add(rule.getBadge());
+        if (rule.getBadge() != null) {
+            play.getBadges().add(rule.getBadge());
+        }
         play.setNumberOfPoints(play.getNumberOfPoints() + rule.getNumberOfPoints());
         URI createdURI = context.getAbsolutePathBuilder().path(Long.toString(newEventId)).build();
         return Response.created(createdURI).build();
@@ -145,7 +146,9 @@ public class EventResource {
             play.getEvents().remove(eventToDelete);
             eventsManager.delete(eventId);
             Rule rule = rulesManager.findByType(eventToDelete.getType());
-            play.getBadges().remove(rule.getBadge());
+            if (rule.getBadge() != null) {
+                play.getBadges().remove(rule.getBadge());
+            }
             play.setNumberOfPoints(play.getNumberOfPoints() - rule.getNumberOfPoints());
             return Response.ok().build();
         }
