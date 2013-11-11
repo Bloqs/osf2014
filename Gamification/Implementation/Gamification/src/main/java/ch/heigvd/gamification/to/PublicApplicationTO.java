@@ -53,14 +53,6 @@ public class PublicApplicationTO {
         this.description = description;
     }
 
-    public String getApiKey() {
-        return apiKey;
-    }
-
-    public void setApiKey(String apiKey) {
-        this.apiKey = apiKey;
-    }
-
     public Collection<PublicPlayerTO> getPlayers() {
         return players;
     }
