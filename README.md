@@ -4,19 +4,16 @@ Open Source Framework
 Gamification API
 ------------
 
-1) Objets de Gamifications implémentés :
-  - Application
-  - Player
-  - Badge
-  - Rule
-  - Event
-  - Leaderboard
+1) Présentation
+	- API de Gamification pour divers applications. Il permet de gérer des applications avec leur utilisateurs ainsi que
+des badges, rules, events et même des classements.
+
 
 2) Documentation dans apiary :
-  - http://docs.rggamification.apiary.io/
+	- http://docs.rggamification.apiary.io/
 
 3) Simple présentation ppt : 
-  - https://drive.google.com/file/d/0B_T2yzmXk7OiamtxbzdxTDdMcFk/edit?usp=sharing
+	- https://drive.google.com/file/d/0B_T2yzmXk7OiamtxbzdxTDdMcFk/edit?usp=sharing
 
 4) Comment utiliser l'API
 
