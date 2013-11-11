@@ -4,18 +4,19 @@ Open Source Framework
 Gamification API
 ------------
 
-1) Présentation
-	- API de Gamification pour divers applications. Il permet de gérer des applications avec leur utilisateurs ainsi que
-des badges, rules, events et même des classements.
+1) Présentation : 
+
+API de Gamification pour divers applications. Il permet de gérer des applications avec leur utilisateurs ainsi que des badges, rules, events et même des classements.
+
+Présentation PowerPoint => https://drive.google.com/file/d/0B_T2yzmXk7OiamtxbzdxTDdMcFk/edit?usp=sharing
 
 
 2) Documentation dans apiary :
+
 	- http://docs.rggamification.apiary.io/
 
-3) Simple présentation ppt : 
-	- https://drive.google.com/file/d/0B_T2yzmXk7OiamtxbzdxTDdMcFk/edit?usp=sharing
 
-4) Comment utiliser l'API
+3) Comment utiliser l'API
 
 	a) Lancer NetBeans IDE 7.4 RC1
 	b) Dans NetBeans, ouvrir le menu 'Team' --> Remote --> Clone
@@ -29,7 +30,7 @@ des badges, rules, events et même des classements.
 	g) Compiler le projet avec les dépendances : Dans le sous-menu 'Projects', clique droit sur le projet 'Gamification' puis lancer 'Build with Dependencies'
 	h) Faite un run du projet ou un run debug puis tester l'api rest soit par le plugin restclient dans Mozilla Firefox soit avec cURL 
 
-5) Règles implémentées dans Gamification
+4) Règles implémentées dans Gamification
 
 	a) L'apiKey est générée par le code de Gamification à sa création
 	b) Le secret est choisi par l'utilisateur du Gamification engine lors de la création d'une application
