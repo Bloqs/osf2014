@@ -43,43 +43,43 @@ Présentation PowerPoint => https://drive.google.com/file/d/0B_T2yzmXk7Oiamtxbzd
 	i) Un même badge n'est attribué qu'une seul fois a un joueur donné
 	j) Un event d'un même type peut être lancé sur un même joueur, les points selon la règle liée par le type seront additionnés aux points du joueur
 
-Exemples
---------
-POST avec Header JSON
+5) Exemples
 
-Ajout application : 
-http://localhost:8080/Gamification/api/applications/
-{"name":"nom app","description":"description app","apiSecret":"secret"}
+	POST avec Header JSON
 
-Ajout d'un joueur : 
-http://localhost:8080/Gamification/api/applications/{apiKey}/secret/players/
-{"firstName":"joueur 1","lastName":"nom joueur 1","email":"joueur@hei-vd.ch","numberOfPoints":"0"}
-
-Ajout d'une règle
-http://localhost:8080/Gamification/api/applications/{apiKey}/secret/rules/
-{"onEventType":"Inscription","numberOfPoints":"2"}
-
-Ajout d'un badge numéro 1:
-http://localhost:8080/Gamification/api/badges/
-{"name":"Badge bon joueur","description":"Badge obtenu apres avoir eu plus de 300 points","icon":"icon http://www.images.com/2651456"}
-
-Ajout d'une règle avec attribution d'un badge badge numéro 1:
-http://localhost:8080/Gamification/api/applications/{apiKey}/secret/rules/
-{"onEventType":"b bon joueur et +300","numberOfPoints":"300","badge":{"id":"1"}}
-
-Ajout d'un event :
-http://localhost:8080/Gamification/api/applications/{apiKey}/secret/players/1/events/
-{"type":"b bon joueur et +300"}
-
-GET
-Afficher informations joueurs :
-http://localhost:8080/Gamification/api/applications/{apiKey}/secret/players/
-
-Afficher informations events du joueur 1:
-http://localhost:8080/Gamification/api/applications/{apiKey}/secret/players/1/events/
-
-Afficher les joueurs avec le plus de points:
-http://localhost:8080/Gamification/api/applications/{apiKey}/secret/leaderboard/
+	Ajout application : 
+	http://localhost:8080/Gamification/api/applications/
+	{"name":"nom app","description":"description app","apiSecret":"secret"}
+	
+	Ajout d'un joueur : 
+	http://localhost:8080/Gamification/api/applications/{apiKey}/secret/players/
+	{"firstName":"joueur 1","lastName":"nom joueur 1","email":"joueur@hei-vd.ch","numberOfPoints":"0"}
+	
+	Ajout d'une règle
+	http://localhost:8080/Gamification/api/applications/{apiKey}/secret/rules/
+	{"onEventType":"Inscription","numberOfPoints":"2"}
+	
+	Ajout d'un badge numéro 1:
+	http://localhost:8080/Gamification/api/badges/
+	{"name":"Badge bon joueur","description":"Badge obtenu apres avoir eu plus de 300 points","icon":"icon http://www.images.com/2651456"}
+	
+	Ajout d'une règle avec attribution d'un badge badge numéro 1:
+	http://localhost:8080/Gamification/api/applications/{apiKey}/secret/rules/
+	{"onEventType":"b bon joueur et +300","numberOfPoints":"300","badge":{"id":"1"}}
+	
+	Ajout d'un event :
+	http://localhost:8080/Gamification/api/applications/{apiKey}/secret/players/1/events/
+	{"type":"b bon joueur et +300"}
+	
+	GET
+	Afficher informations joueurs :
+	http://localhost:8080/Gamification/api/applications/{apiKey}/secret/players/
+	
+	Afficher informations events du joueur 1:
+	http://localhost:8080/Gamification/api/applications/{apiKey}/secret/players/1/events/
+	
+	Afficher les joueurs avec le plus de points:
+	http://localhost:8080/Gamification/api/applications/{apiKey}/secret/leaderboard/
 
 
 
