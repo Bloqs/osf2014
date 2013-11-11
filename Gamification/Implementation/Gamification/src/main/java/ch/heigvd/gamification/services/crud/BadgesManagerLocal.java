@@ -18,6 +18,10 @@ public interface BadgesManagerLocal {
     void update(Badge newState) throws EntityNotFoundException;
 
     void delete(long id) throws EntityNotFoundException;
+    
+    int findBadgeWithPlayers(Badge b);
+    
+    int findBadgeInRules(Badge b);
 
     Badge findById(long id) throws EntityNotFoundException;
 

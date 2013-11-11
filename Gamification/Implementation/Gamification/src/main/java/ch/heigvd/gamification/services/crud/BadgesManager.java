@@ -1,4 +1,4 @@
-    package ch.heigvd.gamification.services.crud;
+package ch.heigvd.gamification.services.crud;
 
 import ch.heigvd.gamification.exceptions.EntityNotFoundException;
 import ch.heigvd.gamification.model.Badge;
@@ -17,7 +17,7 @@ import javax.persistence.PersistenceContext;
 public class BadgesManager implements BadgesManagerLocal {
 
     @PersistenceContext(unitName = "ch.heigvd_Gamification_war_1.0-SNAPSHOTPU")
-    
+
     private EntityManager em;
 
     @Override
@@ -42,6 +42,16 @@ public class BadgesManager implements BadgesManagerLocal {
     }
 
     @Override
+    public int findBadgeWithPlayers(Badge b) {
+        return em.createNamedQuery("findBadgeWithPlayers").setParameter("badge", b).getResultList().size();
+    }
+
+    @Override
+    public int findBadgeInRules(Badge b) {
+        return em.createNamedQuery("findBadgeInRules").setParameter("badge", b).getResultList().size();
+    }
+
+    @Override
     public long create(Badge badgeData) {
         Badge newBadge = new Badge(badgeData);
         em.persist(newBadge);
@@ -53,5 +63,5 @@ public class BadgesManager implements BadgesManagerLocal {
         Badge badgeToUpdate = findById(newState.getId());
         em.merge(newState);
     }
-    
+
 }

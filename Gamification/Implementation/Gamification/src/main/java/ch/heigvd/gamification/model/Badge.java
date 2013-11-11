@@ -13,12 +13,21 @@ import javax.persistence.NamedQuery;
  *
  * @author Khaled Basbous
  */
-@NamedQueries(
+@NamedQueries({
     @NamedQuery(
             name = "findAllBadges",
             query = "SELECT b FROM Badge b"
+    ),
+    @NamedQuery(
+            name = "findBadgeWithPlayers",
+            query = "SELECT p FROM Player p join p.badges b where :badge = b"
+    ),
+    @NamedQuery(
+            name = "findBadgeInRules",
+            query = "select r from Rule r  where :badge = r.badge"
     )
-)
+
+})
 
 @Entity
 public class Badge implements Serializable {
@@ -27,7 +36,7 @@ public class Badge implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO, generator = "badge")
     private Long id;
-    
+
     private String name;
     private String description;
     private String icon;
@@ -75,7 +84,7 @@ public class Badge implements Serializable {
     public void setIcon(String icon) {
         this.icon = icon;
     }
-    
+
     @Override
     public int hashCode() {
         int hash = 0;

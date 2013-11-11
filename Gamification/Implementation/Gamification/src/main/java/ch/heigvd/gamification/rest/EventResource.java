@@ -85,7 +85,9 @@ public class EventResource {
         long newEventId = eventsManager.create(newEvent);
         play.getEvents().add(eventsManager.findById(newEventId));
         if (rule.getBadge() != null) {
-            play.getBadges().add(rule.getBadge());
+            if (play.getBadges().contains(rule.getBadge()) == false) {
+                play.getBadges().add(rule.getBadge());
+            }         
         }
         play.setNumberOfPoints(play.getNumberOfPoints() + rule.getNumberOfPoints());
         URI createdURI = context.getAbsolutePathBuilder().path(Long.toString(newEventId)).build();

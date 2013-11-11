@@ -129,8 +129,11 @@ public class BadgeResource {
     @Path("{badgeId}")
     public Response deleteResource(@PathParam("badgeId") long badgeId) throws EntityNotFoundException {
         Badge badgeToDelete = badgesManager.findById(badgeId);
-        badgesManager.delete(badgeId);
-        return Response.ok().build();
+        if (badgesManager.findBadgeInRules(badgeToDelete)+badgesManager.findBadgeWithPlayers(badgeToDelete) == 0) {
+            badgesManager.delete(badgeId);
+            return Response.ok().build();
+        }
+        return Response.notModified().build();
     }
 
 }
