@@ -13,7 +13,7 @@ Présentation PowerPoint => https://drive.google.com/file/d/0B_T2yzmXk7Oiamtxbzd
 
 2) Documentation dans apiary :
 
-	http://docs.rggamification.apiary.io/
+http://docs.rggamification.apiary.io/
 
 
 3) Comment utiliser l'API
@@ -43,7 +43,7 @@ Présentation PowerPoint => https://drive.google.com/file/d/0B_T2yzmXk7Oiamtxbzd
 	i) Un même badge n'est attribué qu'une seul fois a un joueur donné
 	j) Un event d'un même type peut être lancé sur un même joueur, les points selon la règle liée par le type seront additionnés aux points du joueur
 
-5) Exemples
+5) Exemples de test avec un client REST
 
 	POST avec Header JSON
 
@@ -81,5 +81,123 @@ Présentation PowerPoint => https://drive.google.com/file/d/0B_T2yzmXk7Oiamtxbzd
 	Afficher les joueurs avec le plus de points:
 	http://localhost:8080/Gamification/api/applications/{apiKey}/secret/leaderboard/
 
+6) Exemple de test avec cURL pour Windows (échappement de guillemet dans le passage de JSON)
 
+	Création: POST
+	Mise à jour: PUT
+	Obtention: GET
+	Suppression: DELETE
+	
+	
+	___________________________________________________________________________________________________________________________________
+	-----------------------------------------------------------------------------------------------------------------------------------
+	/badges
+	GET:
+	curl http://localhost:8080/Gamification/api/badges
+	
+	POST:
+	curl -i -X POST -H "Content-Type: application/json" -d '{\"name\":\"Badge_People\",\"description\":\"Description_badge\",\"icon\":\"image.png\"}' http://localhost:8080/Gamification/api/badges
+	
+	___________________________________________________________________________________________________________________________________
+	-----------------------------------------------------------------------------------------------------------------------------------
+	/badges/{badgeId}
+	GET:
+	curl http://localhost:8080/Gamification/api/badges/1
+	
+	PUT:
+	curl -i -X PUT -H "Content-Type: application/json" -d '{\"name\":\"Badge_membre\",\"description\":\"Mon_badge\",\"icon\":\"image5.png\"}' http://localhost:8080/Gamification/api/badges/1
+	
+	DELETE:
+	curl -i -X DELETE http://localhost:8080/Gamification/api/badges/1
+	
+	___________________________________________________________________________________________________________________________________
+	-----------------------------------------------------------------------------------------------------------------------------------
+	/applications
+	GET:
+	curl http://localhost:8080/Gamification/api/applications/
+	
+	POST:
+	curl -i -X POST -H "Content-Type: application/json" -d '{\"name\":\"My_Game\",\"description\":\"This_is_a_description_for_My_Game\",\"apiSecret\":477}' http://localhost:8080/Gamification/api/applications/
+	
+	___________________________________________________________________________________________________________________________________
+	-----------------------------------------------------------------------------------------------------------------------------------
+	/applications/{apiKey}
+	GET:
+	curl http://localhost:8080/Gamification/api/applications/1/
+	
+	/applications/{apiKey}/{apiSecret}
+	PUT:
+	curl -i -X PUT -H "Content-Type: application/json" -d '{\"name\":\"My_updated_game\",\"description\":\"New_description_for_My_Game\",\"apiSecret\":54}' http://localhost:8080/Gamification/api/applications/1/477/
+	
+	DELETE:
+	curl -i -X DELETE http://localhost:8080/Gamification/api/applications/1/477/
+	
+	___________________________________________________________________________________________________________________________________
+	-----------------------------------------------------------------------------------------------------------------------------------
+	/applications/{apiKey}/{apiSecret}/players
+	GET:
+	curl http://localhost:8080/Gamification/api/applications/1/477/players
+	
+	POST:
+	curl -i -X POST -H "Content-Type: application/json" -d '{\"firstName\":\"Romain\",\"lastName\":\"Gisiger\",\"email\":\"rg@example.ch\",\"numberOfPoints\":380}' http://localhost:8080/Gamification/api/applications/1/477/players
+	
+	___________________________________________________________________________________________________________________________________
+	-----------------------------------------------------------------------------------------------------------------------------------
+	/applications/{apiKey}/{apiSecret}/players/{playerId}
+	GET:
+	curl http://localhost:8080/Gamification/api/applications/1/477/players/1
+	
+	PUT:
+	curl -i -X PUT -H "Content-Type: application/json" -d '{\"firstName\":\"Romain\",\"lastName\":\"G\",\"email\":\"romain.gisiger@master.ch\",\"numberOfPoints\":40}' http://localhost:8080/Gamification/api/applications/1/477/players/1
+	
+	DELETE:
+	curl -i -X DELETE http://localhost:8080/Gamification/api/applications/1/477/players/1
+	
+	___________________________________________________________________________________________________________________________________
+	-----------------------------------------------------------------------------------------------------------------------------------
+	/applications/{apiKey}/{apiSecret}/players/{playerId}/events
+	GET:
+	curl http://localhost:8080/Gamification/api/applications/1/477/players/1/events
+	
+	POST:
+	curl -i -X POST -H "Content-Type: application/json" -d '{\"type\":\"Event_number_1\"}' http://localhost:8080/Gamification/api/applications/1/477/players/1/events
+	
+	___________________________________________________________________________________________________________________________________
+	-----------------------------------------------------------------------------------------------------------------------------------
+	/applications/{apiKey}/{apiSecret}/players/{playerId}/events/{eventId}
+	GET:
+	curl http://localhost:8080/Gamification/api/applications/1/477/players/1/events/1
+	
+	PUT:
+	curl -i -X PUT -H "Content-Type: application/json" -d '{\"type\":\"Event_number_37\"}' http://localhost:8080/Gamification/api/applications/1/477/players/1/events/1
+	
+	DELETE:
+	curl -i -X DELETE http://localhost:8080/Gamification/api/applications/1/477/players/1/events/1
+	
+	___________________________________________________________________________________________________________________________________
+	-----------------------------------------------------------------------------------------------------------------------------------
+	/applications/{apiKey}/{apiSecret}/rules
+	GET:
+	curl http://localhost:8080/Gamification/api/applications/1/477/rules
+	
+	POST:
+	curl -i -X POST -H "Content-Type: application/json" -d '{\"onEventType\":\"Rule_number_3\",\"numberOfPoints\":10}' http://localhost:8080/Gamification/api/applications/1/477/rules
+	
+	___________________________________________________________________________________________________________________________________
+	-----------------------------------------------------------------------------------------------------------------------------------
+	/applications/{apiKey}/{apiSecret}/rules/{ruleId}
+	GET:
+	curl http://localhost:8080/Gamification/api/applications/1/477/rules/1
+	
+	PUT:
+	curl -i -X PUT -H "Content-Type: application/json" -d '{\"onEventType\":\"Rule_number_45\",\"numberOfPoints\":-10}' http://localhost:8080/Gamification/api/applications/1/477/rules/1
+	
+	DELETE:
+	curl -i -X DELETE http://localhost:8080/Gamification/api/applications/1/477/rules/1
+
+	___________________________________________________________________________________________________________________________________
+	-----------------------------------------------------------------------------------------------------------------------------------
+	/applications/{apiKey}/{apiSecret}/leaderboard
+	GET:
+	curl http://localhost:8080/Gamification/api/applications/1/477/leaderboard
 
