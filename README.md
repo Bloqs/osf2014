@@ -13,7 +13,7 @@ Présentation PowerPoint => https://drive.google.com/file/d/0B_T2yzmXk7Oiamtxbzd
 
 2) Documentation dans apiary :
 
-	- http://docs.rggamification.apiary.io/
+	http://docs.rggamification.apiary.io/
 
 
 3) Comment utiliser l'API
